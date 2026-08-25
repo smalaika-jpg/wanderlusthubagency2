@@ -117,4 +117,5 @@ Column 4: Newsletter subscription form.
 
 Footer Bottom: Copyright notice (© 2026 Wanderlust Hub Agency. All rights reserved.) and "Designed for adventure."
 
-Botpress Chatbot Widget: Integrated at the bottom-right corner via the official Botpress Cloud injection scripts (687ad2e4-7bdd-4830-b204-897df562ffa3
+Botpress Chatbot Widget: Integrated at the bottom-right corner via the official Botpress Cloud injection scripts (<script src="https://cdn.botpress.cloud/webchat/v5.0/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2026/08/21/20/20260821203628-TC3K2QN5.js" defer></script>)

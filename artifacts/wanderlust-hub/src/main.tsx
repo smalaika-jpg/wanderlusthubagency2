@@ -1,17 +1,10 @@
-import { createRoot } from 'react-dom/client';
-
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import App from './App';
-import { ErrorBoundary } from '@/components/error-boundary';
+import './index.css'; // Make sure your CSS file is imported here
 
-import './index.css';
-
-createRoot(document.getElementById('root')!, {
-  // Keeps caught errors off reportError(), which would raise the dev overlay.
-  onCaughtError: (error, errorInfo) => {
-    console.error(error, errorInfo.componentStack);
-  },
-}).render(
-  <ErrorBoundary>
-    <App />
-  </ErrorBoundary>,
-);
+ReactDOM.createRoot(document.getElementById('root')!).render(
+<React.StrictMode>
+<App />
+</React.StrictMode>
+)
