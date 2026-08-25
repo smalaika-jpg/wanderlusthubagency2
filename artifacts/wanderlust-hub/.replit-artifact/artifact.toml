@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Wanderlust Hub"
+description = "A polished travel discovery and planning website with curated destination guides, hotel deal links, live currency conversion, and an interactive trip budget estimator."
+version = "1.0.0"
+id = "artifacts/wanderlust-hub"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23171
+
+[services.development]
+run = "pnpm --filter @workspace/wanderlust-hub run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/wanderlust-hub", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/wanderlust-hub/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23171"
+BASE_PATH = "/"

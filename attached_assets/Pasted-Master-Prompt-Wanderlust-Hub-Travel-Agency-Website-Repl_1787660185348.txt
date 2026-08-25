@@ -1,0 +1,120 @@
+Master Prompt: Wanderlust Hub Travel Agency Website Replication
+Build a professional, fully functional, responsive single-page travel agency website named "Wanderlust Hub" hosted in a clean index.html architecture with embedded CSS and JavaScript. The design must match a high-end, modern SaaS travel platform using Google Fonts ('DM Sans' and 'Playfair Display') and a vibrant color palette (primary sky blue #0ea5e9, dark slate #0f172a, and light background #f8fafc).
+
+1. Core Architecture & Navigation
+Top Navigation Bar: Fixed glassmorphism header (background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px)) containing:
+
+Brand logo: A custom plane icon (✈) with the text Wanderlust Hub.
+
+Navigation links: Home, Destinations, Budget Estimator, About Us, Services, Contact, and a prominent Book Now call-to-action button.
+
+Multi-currency switcher dropdown supporting USD ($), EUR (€), GBP (£), AUD (A$), and CAD (C$) that updates all visible package prices and trip estimations globally in real-time.
+
+2. Hero Section & Floating Search Bar
+Hero Section: Immersive background image of an overwater bungalow ([https://images.unsplash.com/photo-1514282401047-d79a71a590e8](https://images.unsplash.com/photo-1514282401047-d79a71a590e8)) with a dark gradient overlay.
+
+Tagline: EXPLORE THE WORLD WITH US
+
+Main Title: Discover Your Next Great Adventure (with "Great Adventure" styled in an italicized gold accent).
+
+Subtitle: Curated travel experiences designed to inspire, rejuvenate, and create memories that last a lifetime.
+
+Floating Search Bar: Positioned overlapping the bottom of the hero section featuring:
+
+Location dropdown/input (Maldives, Switzerland, Santorini).
+
+Date picker (dd/mm/yyyy).
+
+Travelers selector (1 Person, 2 Persons, Family).
+
+Search button with a magnifying glass icon that smooth-scrolls to the estimator/destinations.
+
+3. Curated Destination Guides & Hotel Deals Section
+Header: "Wanderlust Hub: Curated Guides & Top Hotel Deals" with an introductory descriptive paragraph.
+
+Filter Pills Bar: Interactive filter pills for All, Free Cancellation, Flexible Dates, Hotel Hopping, DIY-Friendly, Expert-Led, Fast & Cheap, and Slow & Savvy.
+
+Three Detailed Destination Cards:
+
+Maldives:
+
+Location: Maldives, Indian Ocean | Rating: ⭐ 4.9 (124)
+
+Featured Accommodation: 4-Star Beach Villa
+
+Journey Highlights: Malé, Baa Atoll, Ari Atoll, Vaavu Atoll
+
+Key Perks: Free Cancellation, DIY-Friendly, Hotel Hopping
+
+Getting Around: Speedboats and domestic flights info.
+
+Itinerary Styles: Fast & Cheap / Slow & Savvy
+
+Reference Budget: $2,499 (7 Days / 6 Nights) with a direct Check prices ↗ button linking to Booking.com affiliate search results ([https://www.booking.com/searchresults.html?ss=Maldives](https://www.booking.com/searchresults.html?ss=Maldives)).
+
+Switzerland:
+
+Location: Zermatt, Switzerland | Rating: ⭐ 4.8 (89)
+
+Featured Accommodation: Alpine Boutique Lodge
+
+Journey Highlights: Matterhorn, Gornergrat, Riffelsee, Zermatt Village
+
+Key Perks: Flexible Dates, DIY-Friendly, Hotel Hopping
+
+Getting Around: Trains, buses, and cable cars info.
+
+Itinerary Styles: Fast & Cheap / Slow & Savvy
+
+Reference Budget: $1,850 (5 Days / 4 Nights) with a direct Check prices ↗ button linking to Booking.com ([https://www.booking.com/searchresults.html?ss=Zermatt+Switzerland](https://www.booking.com/searchresults.html?ss=Zermatt+Switzerland)).
+
+Santorini:
+
+Location: Santorini, Greece | Rating: ⭐ 5.0 (210)
+
+Featured Accommodation: Caldera-View Suite
+
+Journey Highlights: Oia, Fira, Imerovigli, Akrotiri
+
+Key Perks: Free Cancellation, Expert-Led, Hotel Hopping
+
+Getting Around: Local buses, ferries, and quick gyros info.
+
+Itinerary Styles: Fast & Cheap / Slow & Savvy
+
+Reference Budget: $1,650 (6 Days / 5 Nights) with a direct Check prices ↗ button linking to Booking.com ([https://www.booking.com/searchresults.html?ss=Santorini](https://www.booking.com/searchresults.html?ss=Santorini)).
+
+4. Interactive Travel Trip Estimator
+Layout: Vibrant blue container featuring a clean white configuration card.
+
+Inputs: Currency switcher, Destination selector (Maldives, Switzerland, Santorini), and Daily travel style selector (Budget $, Mid-range $$, Luxury $$$).
+
+Logic: Instant dynamic calculation displaying the package total and estimated daily cost matching the selected currency multiplier.
+
+5. About Us & Services Sections
+About Us: Split layout featuring a warm photo of happy travelers on the left, an overlay badge for 15+ Years of Experience, and company background text on the right emphasizing that the agency provides curated destination guides and flexible journeys rather than direct trip management.
+
+Services Grid: Cards highlighting Custom Trip Planning, Hotel Price Comparison, and 24/7 AI Concierge Support.
+
+6. Testimonials Section
+Title: "What Our Travelers Say"
+
+Cards: Three customer reviews featuring user avatars, initials (SJ, MC, ER), titles (Travel Enthusiast, Adventure Seeker, Honeymooner), and glowing feedback regarding the Maldives, Swiss Alps, and Santorini guides.
+
+7. Contact Us Section
+Layout: Two-column box with a gradient blue left panel displaying the business email (wanderlusthubagency@gmail.com) and a right-side contact form with inputs for Full Name, Email Address, and Message.
+
+8. Professional Footer & Integrations
+Footer Columns:
+
+Column 1: Brand logo, short mission statement, and social media icon links (Facebook, Twitter/X, Instagram, LinkedIn).
+
+Column 2: Quick Links (Home, About Us, Destinations, Services, Contact).
+
+Column 3: Support Links (FAQ, Booking Guide, Cancellation Policy, Terms of Service, Privacy Policy).
+
+Column 4: Newsletter subscription form.
+
+Footer Bottom: Copyright notice (© 2026 Wanderlust Hub Agency. All rights reserved.) and "Designed for adventure."
+
+Botpress Chatbot Widget: Integrated at the bottom-right corner via the official Botpress Cloud injection scripts (687ad2e4-7bdd-4830-b204-897df562ffa3
