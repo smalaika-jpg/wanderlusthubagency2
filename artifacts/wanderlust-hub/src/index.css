@@ -162,10 +162,6 @@
 .intro-row { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 42px; }
 .intro-row .section-heading { flex: 1; }
 .intro-stamp { width: 120px; height: 120px; display: grid; place-items: center; border: 1px solid #d8cda9; border-radius: 50%; color: var(--coral); font-family: var(--app-font-serif); font-size: 13px; line-height: 1.2; text-align: center; transform: rotate(9deg); }
-.filter-row { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 34px; }
-.filter-pill { border: 1px solid #d5dacf; border-radius: 999px; padding: 10px 15px; background: transparent; color: #58727a; font-size: 12px; font-weight: 700; cursor: pointer; transition: color .2s, background .2s, border .2s, transform .2s; }
-.filter-pill:hover { transform: translateY(-1px); border-color: var(--sea); color: var(--sea); }
-.filter-pill.active { border-color: var(--deep); background: var(--deep); color: #fff; }
 .destination-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .destination-card { overflow: hidden; border: 1px solid #dedbcf; border-radius: 18px; background: #fbf8ed; box-shadow: 0 8px 25px rgba(23,48,59,.04); transition: transform .3s, box-shadow .3s; }
 .destination-card:hover { transform: translateY(-7px); box-shadow: 0 19px 38px rgba(23,48,59,.13); }
@@ -284,6 +280,7 @@ textarea.contact-input { min-height: 120px; resize: vertical; }
 .footer-links { display: grid; gap: 11px; }
 .footer-links a { color: rgba(255,255,255,.66); font-size: 12px; text-decoration: none; }
 .footer-links a:hover { color: #fff; }
+#bp-webchat-container, div[id*="bp-"] { position: fixed !important; bottom: 20px !important; right: 20px !important; z-index: 999999 !important; }
 .newsletter-copy { color: rgba(255,255,255,.6); font-size: 12px; line-height: 1.6; }
 .newsletter-form { display: flex; margin-top: 15px; }
 .newsletter-form input { min-width: 0; flex: 1; border: 1px solid rgba(255,255,255,.15); border-radius: 7px 0 0 7px; outline: 0; padding: 11px; background: rgba(255,255,255,.08); color: #fff; font-size: 11px; }

@@ -10,7 +10,6 @@ import {
   ChevronRight,
   Compass,
   ExternalLink,
-  Facebook,
   Globe2,
   Heart,
   Hotel,
@@ -38,8 +37,6 @@ import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
 const queryClient = new QueryClient();
 
 type Currency = 'USD' | 'EUR' | 'GBP' | 'AUD' | 'CAD';
-type Filter = 'All' | 'Free Cancellation' | 'Flexible Dates' | 'Hotel Hopping' | 'DIY-Friendly' | 'Expert-Led' | 'Fast & Cheap' | 'Slow & Savvy';
-
 const currencies: Record<Currency, { rate: number; symbol: string }> = {
   USD: { rate: 1, symbol: '$' },
   EUR: { rate: 0.92, symbol: '€' },
@@ -63,7 +60,6 @@ const destinations = [
       { name: 'Vaavu Atoll', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Vaavu+Atoll+Maldives' },
     ],
     perks: ['Free Cancellation', 'DIY-Friendly', 'Hotel Hopping'],
-    filters: ['Free Cancellation', 'DIY-Friendly', 'Hotel Hopping', 'Fast & Cheap', 'Slow & Savvy'] as Filter[],
     transport: 'Speedboats and domestic flights connect the atolls with ease.',
     budget: 2499,
     duration: '7 Days / 6 Nights',
@@ -85,7 +81,6 @@ const destinations = [
       { name: 'Zermatt Village', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Zermatt+Village+Switzerland' },
     ],
     perks: ['Flexible Dates', 'DIY-Friendly', 'Hotel Hopping'],
-    filters: ['Flexible Dates', 'DIY-Friendly', 'Hotel Hopping', 'Fast & Cheap', 'Slow & Savvy'] as Filter[],
     transport: 'Trains, buses, and cable cars make every mountain view reachable.',
     budget: 1850,
     duration: '5 Days / 4 Nights',
@@ -107,7 +102,6 @@ const destinations = [
       { name: 'Akrotiri', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Akrotiri+Santorini+Greece' },
     ],
     perks: ['Free Cancellation', 'Expert-Led', 'Hotel Hopping'],
-    filters: ['Free Cancellation', 'Expert-Led', 'Hotel Hopping', 'Fast & Cheap', 'Slow & Savvy'] as Filter[],
     transport: 'Local buses, ferries, and quick gyros keep the caldera days fluid.',
     budget: 1650,
     duration: '6 Days / 5 Nights',
@@ -117,7 +111,6 @@ const destinations = [
   },
 ] as const;
 
-const filters: Filter[] = ['All', 'Free Cancellation', 'Flexible Dates', 'Hotel Hopping', 'DIY-Friendly', 'Expert-Led', 'Fast & Cheap', 'Slow & Savvy'];
 const stay22Links: Record<string, string> = {
   maldives: 'https://www.stay22.com/allez/booking.com?ss=Maldives&lmaID=6a858623a25d8512b2551b75',
   switzerland: 'https://www.stay22.com/allez/booking.com?ss=Zermatt+Switzerland&lmaID=6a858623a25d8512b2551b75',
@@ -142,7 +135,6 @@ function Home() {
   const [searchDestination, setSearchDestination] = useState('maldives');
   const [searchTravelers, setSearchTravelers] = useState('1');
   const [searchDate, setSearchDate] = useState('');
-  const [activeFilter, setActiveFilter] = useState<Filter>('All');
   const [travelStyle, setTravelStyle] = useState('mid');
   const [travelerCount, setTravelerCount] = useState(2);
   const [saved, setSaved] = useState<string[]>([]);
@@ -151,12 +143,6 @@ function Home() {
   const [contactSent, setContactSent] = useState(false);
   const [newsletterSent, setNewsletterSent] = useState(false);
   const [contact, setContact] = useState({ name: '', email: '', message: '' });
-
-  const visibleDestinations = useMemo(() => (
-    activeFilter === 'All'
-      ? destinations
-      : destinations.filter((destination) => destination.filters.includes(activeFilter))
-  ), [activeFilter]);
 
   const estimate = useMemo(() => {
     const destination = destinations.find((item) => item.id === selectedDestination) ?? destinations[0];
@@ -286,15 +272,8 @@ function Home() {
             </div>
             <div className="intro-stamp" aria-label="Independent travel guidance">Go<br />somewhere<br />wonderful</div>
           </div>
-          <div className="filter-row" role="list" aria-label="Filter destinations">
-            {filters.map((filter) => (
-              <button className={`filter-pill ${activeFilter === filter ? 'active' : ''}`} key={filter} onClick={() => setActiveFilter(filter)} data-testid={`button-filter-${filter.toLowerCase().replaceAll(' ', '-')}`}>
-                {filter}
-              </button>
-            ))}
-          </div>
           <div className="destination-grid" data-testid="destination-grid">
-            {visibleDestinations.length ? visibleDestinations.map((destination) => {
+            {destinations.map((destination) => {
               const TransportIcon = destination.icon;
               return (
                 <article className="destination-card" key={destination.id} data-testid={`card-destination-${destination.id}`}>
@@ -328,9 +307,7 @@ function Home() {
                   </div>
                 </article>
               );
-            }) : (
-              <div className="empty-result" data-testid="empty-filter-results"><strong>No matching journeys yet.</strong>Try a wider filter — this collection is intentionally small and beautifully considered.</div>
-            )}
+            })}
           </div>
         </div>
       </section>
@@ -468,14 +445,12 @@ function Home() {
               <a href="#home" className="brand" data-testid="link-footer-brand"><span className="brand-mark"><Plane size={17} /></span><span>Wanderlust Hub</span></a>
               <p className="footer-mission">Curated destination guidance for people who would rather collect stories than schedules.</p>
               <div className="socials">
-                <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" data-testid="link-social-facebook"><Facebook size={15} /></a>
-                <a href="https://x.com" target="_blank" rel="noreferrer" aria-label="Twitter X" data-testid="link-social-x">X</a>
-                <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" data-testid="link-social-instagram"><Instagram size={15} /></a>
-                <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn" data-testid="link-social-linkedin"><Linkedin size={15} /></a>
+                <a href="https://www.instagram.com/wanderlusthubagency/" target="_blank" rel="noreferrer" aria-label="Instagram" data-testid="link-social-instagram"><Instagram size={15} /></a>
+                <a href="https://www.linkedin.com/in/wanderlust-hub-agency-b55070431" target="_blank" rel="noreferrer" aria-label="LinkedIn" data-testid="link-social-linkedin"><Linkedin size={15} /></a>
               </div>
             </div>
-            <div><h4>Quick links</h4><div className="footer-links"><a href="#home" data-testid="link-footer-home">Home</a><a href="#about" data-testid="link-footer-about">About Us</a><a href="#destinations" data-testid="link-footer-destinations">Destinations</a><a href="#services" data-testid="link-footer-services">Services</a><a href="#contact" data-testid="link-footer-contact">Contact</a></div></div>
-            <div><h4>Support</h4><div className="footer-links"><a href="#contact" data-testid="link-footer-faq">FAQ</a><a href="#estimator" data-testid="link-footer-guide">Booking Guide</a><a href="#contact" data-testid="link-footer-cancellation">Cancellation Policy</a><a href="#contact" data-testid="link-footer-terms">Terms of Service</a><a href="#contact" data-testid="link-footer-privacy">Privacy Policy</a></div></div>
+            <div><h4>Quick links</h4><div className="footer-links"><a href="index.html" data-testid="link-footer-home">Home</a><a href="about.html" data-testid="link-footer-about">About Us</a><a href="destinations.html" data-testid="link-footer-destinations">Destinations</a><a href="services.html" data-testid="link-footer-services">Services</a><a href="contact.html" data-testid="link-footer-contact">Contact</a></div></div>
+            <div><h4>Support</h4><div className="footer-links"><a href="faq.html" data-testid="link-footer-faq">FAQ</a><a href="booking-guide.html" data-testid="link-footer-guide">Booking Guide</a><a href="terms.html" data-testid="link-footer-terms">Terms of Service</a><a href="privacy.html" data-testid="link-footer-privacy">Privacy Policy</a></div></div>
             <div><h4>A note in your inbox</h4><p className="newsletter-copy">Occasional guides, good deals, and reasons to open the map.</p><form className="newsletter-form" onSubmit={submitNewsletter}><input type="email" placeholder="Your email address" aria-label="Newsletter email" required data-testid="input-newsletter-email" /><button type="submit" aria-label="Subscribe to newsletter" data-testid="button-newsletter-submit"><ChevronRight size={16} /></button></form>{newsletterSent && <div className="form-success" role="status" data-testid="status-newsletter-success"><Check size={13} /> You are on the list.</div>}</div>
           </div>
           <div className="footer-bottom"><span>© 2026 Wanderlust Hub Agency. All rights reserved.</span><span>Designed for adventure.</span></div>
