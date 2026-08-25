@@ -56,7 +56,12 @@ const destinations = [
     rating: '4.9',
     reviews: '124',
     hotel: '4-Star Beach Villa',
-    highlights: ['Malé', 'Baa Atoll', 'Ari Atoll', 'Vaavu Atoll'],
+    highlights: [
+      { name: 'Malé', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Malé+Maldives' },
+      { name: 'Baa Atoll', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Baa+Atoll+Maldives' },
+      { name: 'Ari Atoll', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Ari+Atoll+Maldives' },
+      { name: 'Vaavu Atoll', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Vaavu+Atoll+Maldives' },
+    ],
     perks: ['Free Cancellation', 'DIY-Friendly', 'Hotel Hopping'],
     filters: ['Free Cancellation', 'DIY-Friendly', 'Hotel Hopping', 'Fast & Cheap', 'Slow & Savvy'] as Filter[],
     transport: 'Speedboats and domestic flights connect the atolls with ease.',
@@ -73,7 +78,12 @@ const destinations = [
     rating: '4.8',
     reviews: '89',
     hotel: 'Alpine Boutique Lodge',
-    highlights: ['Matterhorn', 'Gornergrat', 'Riffelsee', 'Zermatt Village'],
+    highlights: [
+      { name: 'Matterhorn', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Matterhorn+Switzerland' },
+      { name: 'Gornergrat', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Gornergrat+Zermatt+Switzerland' },
+      { name: 'Riffelsee', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Riffelsee+Zermatt+Switzerland' },
+      { name: 'Zermatt Village', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Zermatt+Village+Switzerland' },
+    ],
     perks: ['Flexible Dates', 'DIY-Friendly', 'Hotel Hopping'],
     filters: ['Flexible Dates', 'DIY-Friendly', 'Hotel Hopping', 'Fast & Cheap', 'Slow & Savvy'] as Filter[],
     transport: 'Trains, buses, and cable cars make every mountain view reachable.',
@@ -90,7 +100,12 @@ const destinations = [
     rating: '5.0',
     reviews: '210',
     hotel: 'Caldera-View Suite',
-    highlights: ['Oia', 'Fira', 'Imerovigli', 'Akrotiri'],
+    highlights: [
+      { name: 'Oia', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Oia+Santorini+Greece' },
+      { name: 'Fira', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Fira+Santorini+Greece' },
+      { name: 'Imerovigli', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Imerovigli+Santorini+Greece' },
+      { name: 'Akrotiri', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Akrotiri+Santorini+Greece' },
+    ],
     perks: ['Free Cancellation', 'Expert-Led', 'Hotel Hopping'],
     filters: ['Free Cancellation', 'Expert-Led', 'Hotel Hopping', 'Fast & Cheap', 'Slow & Savvy'] as Filter[],
     transport: 'Local buses, ferries, and quick gyros keep the caldera days fluid.',
@@ -103,6 +118,11 @@ const destinations = [
 ] as const;
 
 const filters: Filter[] = ['All', 'Free Cancellation', 'Flexible Dates', 'Hotel Hopping', 'DIY-Friendly', 'Expert-Led', 'Fast & Cheap', 'Slow & Savvy'];
+const stay22Links: Record<string, string> = {
+  maldives: 'https://www.stay22.com/allez/booking.com?ss=Maldives&lmaID=6a858623a25d8512b2551b75',
+  switzerland: 'https://www.stay22.com/allez/booking.com?ss=Zermatt+Switzerland&lmaID=6a858623a25d8512b2551b75',
+  santorini: 'https://www.stay22.com/allez/booking.com?ss=Santorini&lmaID=6a858623a25d8512b2551b75',
+};
 
 function money(value: number, currency: Currency) {
   return new Intl.NumberFormat('en-US', {
@@ -296,14 +316,14 @@ function Home() {
                     <div className="card-rule" />
                     <div className="detail-label">Featured accommodation</div>
                     <div className="hotel-name">{destination.hotel}</div>
-                    <div className="detail-label">Journey highlights</div>
-                    <div className="highlights">{destination.highlights.map((highlight) => <span key={highlight}>{highlight}</span>)}</div>
+                    <div className="detail-label">Top landmark highlights</div>
+                    <div className="highlights">{destination.highlights.map((highlight) => <a href={highlight.mapUrl} target="_blank" rel="noreferrer" key={highlight.name}>{highlight.name} <ExternalLink size={10} /></a>)}</div>
                     <div className="perks">{destination.perks.map((perk) => <span className="perk" key={perk}><Check size={12} />{perk}</span>)}</div>
                     <div className="getting-around"><TransportIcon size={16} /><span><strong>Getting around:</strong> {destination.transport}</span></div>
                     <div className="style-line"><strong>Itinerary styles:</strong> Fast &amp; Cheap / Slow &amp; Savvy</div>
                     <div className="card-footer">
                       <div><div className="price-label">Reference budget</div><div className="price">{money(destination.budget, currency)} <small>· {destination.duration}</small></div></div>
-                      <a className="price-link" href={`https://www.booking.com/searchresults.html?ss=${destination.id === 'maldives' ? 'Maldives' : destination.id === 'switzerland' ? 'Zermatt+Switzerland' : 'Santorini'}`} target="_blank" rel="noreferrer" data-testid={`link-booking-${destination.id}`}>Check prices <ExternalLink size={12} /></a>
+                      <a className="price-link" href={stay22Links[destination.id]} target="_blank" rel="noreferrer" data-testid={`link-stay22-${destination.id}`}>Check prices <ExternalLink size={12} /></a>
                     </div>
                   </div>
                 </article>
@@ -363,7 +383,7 @@ function Home() {
       <section id="about" className="section-pad">
         <div className="container about-grid">
           <div className="about-visual">
-            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=85" alt="Friends sharing a sunny travel moment" data-testid="img-about-travelers" />
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=85" alt="European cafe experience" data-testid="img-about-travelers" />
             <div className="experience-badge">15+ Years<br />of Experience</div>
           </div>
           <div className="about-copy">

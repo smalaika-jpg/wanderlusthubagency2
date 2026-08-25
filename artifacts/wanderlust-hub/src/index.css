@@ -185,7 +185,8 @@
 .detail-label { color: #8b9a9b; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 .hotel-name { margin: 5px 0 16px; font-weight: 700; }
 .highlights { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
-.highlights span { border-radius: 4px; padding: 5px 7px; background: #e8f0e9; color: var(--sea-dark); font-size: 10px; font-weight: 600; }
+.highlights a { display: inline-flex; align-items: center; gap: 3px; border-radius: 4px; padding: 5px 7px; background: #e0f2fe; color: #0369a1; font-size: 10px; font-weight: 600; text-decoration: none; transition: background .2s, transform .2s; }
+.highlights a:hover { background: #bae6fd; transform: translateY(-1px); }
 .perks { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0; }
 .perk { display: inline-flex; align-items: center; gap: 4px; color: #547078; font-size: 10px; }
 .perk svg { color: var(--sea); }
