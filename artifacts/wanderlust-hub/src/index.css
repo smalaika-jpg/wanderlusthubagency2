@@ -222,7 +222,7 @@
 .about-visual { position: relative; padding: 0 28px 28px 0; }
 .about-visual img { width: 100%; height: 495px; display: block; object-fit: cover; border-radius: 18px; }
 .about-visual::after { content: ""; position: absolute; z-index: -1; right: 0; bottom: 0; width: 78%; height: 76%; border-radius: 18px; background: var(--sun); }
-.experience-badge { position: absolute; right: -8px; top: 45px; display: grid; place-items: center; width: 128px; height: 128px; padding: 18px; border-radius: 50%; background: var(--coral); color: #fff8e9; font-family: var(--app-font-serif); font-size: 16px; line-height: 1.15; text-align: center; transform: rotate(8deg); box-shadow: 0 9px 20px rgba(217,119,92,.24); }
+.experience-badge { position: absolute; z-index: 2; right: -18px; top: -18px; display: grid; place-items: center; width: 148px; height: 148px; padding: 19px; border-radius: 50%; background: var(--coral); color: #fff; font-family: var(--app-font-sans); font-size: 14px; font-weight: 800; line-height: 1.2; text-align: center; letter-spacing: .01em; box-shadow: 0 9px 20px rgba(217,119,92,.24); }
 .about-copy h2 { margin: 18px 0; font-family: var(--app-font-serif); font-size: clamp(38px, 5vw, 63px); line-height: .98; letter-spacing: -.055em; }
 .about-copy p { color: #5c757b; line-height: 1.8; }
 .about-points { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 28px; }
@@ -327,7 +327,7 @@ textarea.contact-input { min-height: 120px; resize: vertical; }
   .estimator-inner, .about-grid, .contact-box { grid-template-columns: 1fr; gap: 40px; }
   .estimator-inner { padding-top: 4px; }
   .about-visual img { height: 400px; }
-  .experience-badge { right: 0; }
+  .experience-badge { right: -8px; top: -10px; width: 118px; height: 118px; padding: 14px; font-size: 11px; }
   .services-head { display: block; }
   .services-head p { margin-top: 20px; }
   .services-grid { grid-template-columns: 1fr; }

@@ -33,6 +33,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
 import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
+import aboutCafeImage from '@assets/Gemini_Generated_Image_w2sr9nw2sr9nw2sr_1787673325005.jpg';
 
 const queryClient = new QueryClient();
 
@@ -360,8 +361,8 @@ function Home() {
       <section id="about" className="section-pad">
         <div className="container about-grid">
           <div className="about-visual">
-            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=85" alt="European cafe experience" data-testid="img-about-travelers" />
-            <div className="experience-badge">15+ Years<br />of Experience</div>
+            <img src={aboutCafeImage} alt="Couple enjoying a European cafe experience" data-testid="img-about-travelers" />
+            <div className="experience-badge">15+ Years<br />of<br />Experience</div>
           </div>
           <div className="about-copy">
             <div className="eyebrow">A little more about us</div>
