@@ -10,7 +10,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
 import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
-import aboutCafeImage from '@assets/Gemini_Generated_Image_w2sr9nw2sr9nw2sr_1787673325005.jpg';
+const aboutCafeImage = 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1100&q=85';
 
 const queryClient = new QueryClient();
 
@@ -337,8 +337,7 @@ function Home() {
 
       <section id="about" className="section-pad">
         <div className="container about-grid">
-          <div className="about-visual">
-            <img src={aboutCafeImage} alt="Couple enjoying a European cafe experience" data-testid="img-about-travelers" />
+          <div className="about-visual" style={{ backgroundImage: `url(${aboutCafeImage})` }}>
             <div className="experience-badge">15+ Years<br />of<br />Experience</div>
           </div>
           <div className="about-copy">
@@ -427,6 +426,7 @@ function Home() {
                 <a href="https://www.linkedin.com/in/wanderlust-hub-agency-b55070431" target="_blank" rel="noreferrer" aria-label="LinkedIn" data-testid="link-social-linkedin"><Linkedin size={15} /></a>
               </div>
             </div>
+            
             <div><h4>QUICK LINKS</h4><div className="footer-links"><a href="#home" data-testid="link-footer-home">Home</a><a href="#about" data-testid="link-footer-about">About Us</a><a href="#destinations" data-testid="link-footer-destinations">Destinations</a><a href="#services" data-testid="link-footer-services">Services</a><a href="#contact" data-testid="link-footer-contact">Contact</a></div></div>
             <div><h4>A note in your inbox</h4><p className="newsletter-copy">Occasional guides, good deals, and reasons to open the map.</p><form className="newsletter-form" onSubmit={submitNewsletter}><input type="email" placeholder="Your email address" aria-label="Newsletter email" required data-testid="input-newsletter-email" /><button type="submit" aria-label="Subscribe to newsletter" data-testid="button-newsletter-submit"><ChevronRight size={16} /></button></form>{newsletterSent && <div className="form-success" role="status" data-testid="status-newsletter-success"><Check size={13} /> You are on the list.</div>}</div>
           </div>
@@ -434,20 +434,26 @@ function Home() {
         </div>
       </footer>
 
-      <button className="concierge" onClick={() => setConciergeOpen((open) => !open)} title="Open Wanderlust concierge" aria-label="Open Wanderlust concierge" data-testid="button-concierge"><MessageCircle size={22} /></button>
-      {conciergeOpen && (
-        <div className="toast-note" role="status" data-testid="status-concierge">
-          Concierge coming along — ask us anything about your next journey.
-          <div style={{ marginTop: '6px' }}>
-            <a href="https://cdn.botpress.cloud/webchat/v5.0/shareable.html?configUrl=https://files.bpcontent.cloud/2026/08/21/20/20260821203628-QUVW95PD.json" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline', fontWeight: 'bold' }}>
-              Click here to open Catbot <ExternalLink size={12} style={{ display: 'inline' }} />
-            </a>
+      <div>
+        <button 
+          className="concierge" 
+          onClick={() => setConciergeOpen((open) => !open)} 
+          title="Open Wanderlust concierge" 
+          aria-label="Open Wanderlust concierge" 
+          data-testid="button-concierge"
+        >
+          <MessageCircle size={22} />
+        </button>
+
+        {conciergeOpen && (
+          <div className="toast-note" role="status" data-testid="status-concierge">
+            Concierge coming along — ask us anything about your next journey.
           </div>
-        </div>
-      )}
-    </main>
-  );
-}
+        )}
+      </div>
+      </main>
+      );
+      }
 
 function Router() {
   return (
