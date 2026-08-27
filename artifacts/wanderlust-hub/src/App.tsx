@@ -157,7 +157,7 @@ function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function Home() {
+export function Home() {
   const [currency, setCurrency] = useState<Currency>('USD');
   const [selectedDestination, setSelectedDestination] = useState('maldives');
   const [searchDestination, setSearchDestination] = useState('maldives');
@@ -549,122 +549,112 @@ function Home() {
                 <a href="https://www.linkedin.com/in/wanderlust-hub-agency-b55070431" target="_blank" rel="noreferrer" aria-label="LinkedIn" data-testid="link-social-linkedin"><Linkedin size={15} /></a>
               </div>
             </div>
-            
-            <div><h4>QUICK LINKS</h4><div className="footer-links"><a href="#home" data-testid="link-footer-home">Home</a><a href="#about" data-testid="link-footer-about">About Us</a><a href="#destinations" data-testid="link-footer-destinations">Destinations</a><a href="#services" data-testid="link-footer-services">Services</a><a href="#contact" data-testid="link-footer-contact">Contact</a></div></div>
-            <div><h4>A note in your inbox</h4><p className="newsletter-copy">Occasional guides, good deals, and reasons to open the map.</p><form className="newsletter-form" onSubmit={submitNewsletter}><input type="email" placeholder="Your email address" aria-label="Newsletter email" required data-testid="input-newsletter-email" /><button type="submit" aria-label="Subscribe to newsletter" data-testid="button-newsletter-submit"><ChevronRight size={16} /></button></form>{newsletterSent && <div className="form-success" role="status" data-testid="status-newsletter-success"><Check size={13} /> You are on the list.</div>}</div>
+            <div>
+              <h4>QUICK LINKS</h4>
+              <div className="footer-links">
+                <a href="#home" data-testid="link-footer-home">Home</a>
+                <a href="#about" data-testid="link-footer-about">About Us</a>
+                <a href="#destinations" data-testid="link-footer-destinations">Destinations</a>
+                <a href="#services" data-testid="link-footer-services">Services</a>
+                <a href="#contact" data-testid="link-footer-contact">Contact</a>
+              </div>
+            </div>
+            <div>
+              <h4>STAY UPDATED</h4>
+              <form className="newsletter-form" onSubmit={submitNewsletter}>
+                <p>Get occasional dispatches on new routes and seasonal notes.</p>
+                <div className="newsletter-row">
+                  <input type="email" placeholder="Your email address" aria-label="Email address for newsletter" required data-testid="input-newsletter-email" />
+                  <button type="submit" data-testid="button-newsletter-submit"><ArrowUpRight size={16} /></button>
+                </div>
+                {newsletterSent && <div className="newsletter-success" role="status" data-testid="status-newsletter-success">You’re on the list. Welcome aboard.</div>}
+              </form>
+            </div>
           </div>
-          <div className="footer-bottom"><span>© 2026 Wanderlust Hub Agency. All rights reserved.</span><span>Designed for adventure.</span></div>
+          <div className="footer-bottom">
+            <span>© {new Date().getFullYear()} Wanderlust Hub Agency. All rights reserved.</span>
+            <span>Curated travel guides &amp; hotel price discovery.</span>
+          </div>
         </div>
       </footer>
 
-      <div className="concierge-shell">
+      {/* Floating Concierge Drawer / Toggle */}
+      <div className="concierge-dock">
+        {!conciergeOpen && (
+          <button className="concierge-toggle" onClick={() => setConciergeOpen(true)} aria-label="Open AI Concierge" data-testid="button-concierge-toggle">
+            <MessageCircle size={20} />
+            <span>AI Concierge</span>
+          </button>
+        )}
+
         {conciergeOpen && (
-          <section className="concierge-drawer" role="dialog" aria-modal="false" aria-labelledby="concierge-title" data-testid="drawer-concierge">
+          <div className="concierge-window" role="dialog" aria-label="AI Concierge chat" data-testid="concierge-window">
             <div className="concierge-header">
-              <div className="concierge-heading">
-                <span className="concierge-avatar"><Plane size={16} /></span>
+              <div className="concierge-title-wrap">
+                <span className="concierge-avatar"><Compass size={14} /></span>
                 <div>
-                  <h2 id="concierge-title">Wanderlust concierge</h2>
-                  <p><span className="concierge-status-dot" /> Ready to help you wander</p>
+                  <strong>Wanderlust Concierge</strong>
+                  <span className="concierge-status">Online · Ready to help</span>
                 </div>
               </div>
-              <div className="concierge-actions">
-                <button type="button" className="concierge-icon-button" onClick={resetConcierge} aria-label="Start a new concierge chat" title="Start a new chat" data-testid="button-concierge-reset">
-                  <X size={15} />
-                </button>
-                <button type="button" className="concierge-icon-button" onClick={() => setConciergeOpen(false)} aria-label="Close concierge" title="Close concierge" data-testid="button-concierge-close">
-                  <X size={18} />
-                </button>
+              <div className="concierge-header-actions">
+                <button type="button" className="concierge-reset" onClick={resetConcierge} title="Reset conversation" data-testid="button-concierge-reset">Reset</button>
+                <button type="button" className="concierge-close" onClick={() => setConciergeOpen(false)} aria-label="Close chat" data-testid="button-concierge-close"><X size={18} /></button>
               </div>
             </div>
 
-            <div className="concierge-messages" ref={conciergeMessagesRef} aria-live="polite" data-testid="list-concierge-messages">
+            <div className="concierge-messages" ref={conciergeMessagesRef} data-testid="concierge-messages">
               {conciergeMessages.map((message) => (
-                <div className={`concierge-message-row ${message.role}`} key={message.id}>
-                  {message.role === 'assistant' && <span className="message-avatar"><Plane size={12} /></span>}
-                  <div className="concierge-message">{message.text}</div>
+                <div key={message.id} className={`concierge-bubble ${message.role}`} data-testid={`message-${message.role}-${message.id}`}>
+                  {message.text}
                 </div>
               ))}
               {conciergeTyping && (
-                <div className="concierge-message-row assistant" data-testid="status-concierge-typing">
-                  <span className="message-avatar"><Plane size={12} /></span>
-                  <div className="concierge-message typing-indicator" aria-label="Concierge is typing"><i /><i /><i /></div>
+                <div className="concierge-bubble assistant typing" data-testid="message-typing">
+                  <span className="dot" /><span className="dot" /><span className="dot" />
                 </div>
               )}
             </div>
 
-            {conciergeMessages.length === 1 && !conciergeTyping && (
-              <div className="concierge-prompts" aria-label="Suggested questions">
-                {['Plan a Maldives escape', 'Which destination fits a family?', 'How should I think about budget?'].map((prompt) => (
-                  <button type="button" key={prompt} onClick={() => sendConciergeMessage(prompt)} data-testid={`button-concierge-prompt-${prompt.slice(0, 5).toLowerCase()}`}>
-                    {prompt}
-                  </button>
-                ))}
-              </div>
-            )}
+            <div className="concierge-suggestions">
+              <button type="button" onClick={() => sendConciergeMessage('Tell me about the Maldives')} data-testid="suggestion-maldives">Maldives budget?</button>
+              <button type="button" onClick={() => sendConciergeMessage('What about Switzerland?')} data-testid="suggestion-switzerland">Switzerland tips</button>
+              <button type="button" onClick={() => sendConciergeMessage('Help me plan a family trip')} data-testid="suggestion-family">Family travel</button>
+            </div>
 
             <form className="concierge-form" onSubmit={submitConcierge}>
-              <label className="sr-only" htmlFor="concierge-input">Ask the Wanderlust concierge</label>
               <input
-                id="concierge-input"
                 ref={conciergeInputRef}
+                type="text"
+                placeholder="Ask about destinations, budgets, or timing..."
                 value={conciergeInput}
                 onChange={(event) => setConciergeInput(event.target.value)}
-                placeholder="Ask about a destination..."
-                autoComplete="off"
-                disabled={conciergeTyping}
-                data-testid="input-concierge"
+                aria-label="Ask a question to the concierge"
+                data-testid="input-concierge-message"
               />
-              <button type="submit" aria-label="Send message" disabled={!conciergeInput.trim() || conciergeTyping} data-testid="button-concierge-send">
-                <Send size={16} />
-              </button>
+              <button type="submit" aria-label="Send message" data-testid="button-concierge-send"><Send size={15} /></button>
             </form>
-            <p className="concierge-disclaimer">Helpful starting points, not a substitute for live travel advice.</p>
-          </section>
+          </div>
         )}
-
-        <button
-          className={`concierge ${conciergeOpen ? 'is-open' : ''}`}
-          onClick={() => setConciergeOpen((open) => !open)}
-          title={conciergeOpen ? 'Close Wanderlust concierge' : 'Open Wanderlust concierge'}
-          aria-label={conciergeOpen ? 'Close Wanderlust concierge' : 'Open Wanderlust concierge'}
-          aria-expanded={conciergeOpen}
-          data-testid="button-concierge"
-        >
-          {conciergeOpen ? <X size={22} /> : <MessageCircle size={22} />}
-        </button>
       </div>
-      </main>
-      );
-      }
-
-function Router() {
-  return (
-    <RoutedErrorBoundary>
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route component={NotFound} />
-      </Switch>
-    </RoutedErrorBoundary>
+    </main>
   );
 }
 
-function RoutedErrorBoundary({ children }: { children: ReactNode }) {
-  const [location] = useLocation();
-  return <ErrorBoundary resetKey={location}>{children}</ErrorBoundary>;
-}
-
-function App() {
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
-          <Router />
-        </WouterRouter>
         <Toaster />
+        <ErrorBoundary>
+          <WouterRouter>
+            <Switch>
+              <Route path="/" component={Home} />
+              <Route component={NotFound} />
+            </Switch>
+          </WouterRouter>
+        </ErrorBoundary>
       </TooltipProvider>
     </QueryClientProvider>
   );
 }
-
-export default App;
