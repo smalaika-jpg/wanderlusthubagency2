@@ -3,7 +3,7 @@ import {
   Users, Search, Heart, Star, ExternalLink, Check, Ship, Train, Bus,
   BadgeCheck, Hotel, MessageCircle, Send, Instagram, Linkedin, ChevronRight, Mail
 } from 'lucide-react';
-import { useState, useMemo, ReactNode, FormEvent } from 'react';
+import { useState, useMemo, useEffect, useRef, ReactNode, FormEvent } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
@@ -103,6 +103,56 @@ function money(value: number, currency: Currency) {
   }).format(value * currencies[currency].rate);
 }
 
+type ChatMessage = {
+  id: number;
+  role: 'assistant' | 'user';
+  text: string;
+};
+
+const initialConciergeMessage: ChatMessage = {
+  id: 1,
+  role: 'assistant',
+  text: 'Hi, I’m your Wanderlust concierge. Tell me what kind of escape you have in mind, and I’ll help you find a promising direction.',
+};
+
+function getConciergeReply(question: string) {
+  const normalized = question.toLowerCase();
+
+  if (normalized.includes('maldives') || normalized.includes('beach') || normalized.includes('island')) {
+    return 'For an easy island reset, start with 7 days in the Maldives. Split your stay between a lively local island and a quieter beach villa, then leave room for a snorkel or sandbank day. Our current reference budget is $2,499 per traveler.';
+  }
+
+  if (normalized.includes('switzerland') || normalized.includes('alps') || normalized.includes('matterhorn') || normalized.includes('mountain')) {
+    return 'Switzerland is a great fit for scenic days with very little friction. Base yourself in Zermatt, use the trains and cable cars for the big views, and keep 5 days for the Matterhorn, Gornergrat, and a slow village morning. The reference budget starts at $1,850 per traveler.';
+  }
+
+  if (normalized.includes('santorini') || normalized.includes('greece') || normalized.includes('caldera') || normalized.includes('sunset')) {
+    return 'For Santorini, I’d pair a caldera-view stay with an early start in Oia and a quieter afternoon in Imerovigli. Six days gives you time for the views without making every moment a checklist. The reference budget starts at $1,650 per traveler.';
+  }
+
+  if (normalized.includes('budget') || normalized.includes('cost') || normalized.includes('price') || normalized.includes('cheap')) {
+    return 'A useful starting point is to choose your destination first, then compare Budget, Mid-range, and Luxury in the trip estimator. Maldives currently has the highest reference budget, while Santorini and Switzerland give you more room to shape the pace and stay style.';
+  }
+
+  if (normalized.includes('hotel') || normalized.includes('stay') || normalized.includes('booking')) {
+    return 'Our destination cards show a reference stay for each guide, plus a live price-comparison link. Use “Check prices” to compare current availability, then keep the rest of your itinerary flexible around the stay you like.';
+  }
+
+  if (normalized.includes('season') || normalized.includes('when') || normalized.includes('weather') || normalized.includes('best time')) {
+    return 'A simple rule: choose your dates around the experience you want, not just a perfect forecast. Aim for a shoulder season when you can, and check the destination card plus live hotel availability before locking anything in.';
+  }
+
+  if (normalized.includes('family') || normalized.includes('children') || normalized.includes('kids')) {
+    return 'For a family-friendly starting point, Switzerland’s predictable trains and easy day trips are wonderfully low-stress. If everyone wants water and downtime, the Maldives works best with fewer island changes and a longer stay in one place.';
+  }
+
+  if (normalized.includes('hello') || normalized.includes('hi') || normalized.includes('help')) {
+    return 'Absolutely. I can help you compare the Maldives, Switzerland, and Santorini, think through timing, find a stay style, or make sense of the trip budget. What are you leaning toward?';
+  }
+
+  return 'That sounds like the beginning of a good trip. I can help narrow down Maldives, Switzerland, or Santorini, compare travel styles, think through timing, and point you to hotel price comparisons. What matters most: scenery, rest, food, or keeping the budget light?';
+}
+
 function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -118,9 +168,16 @@ function Home() {
   const [saved, setSaved] = useState<string[]>([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [conciergeOpen, setConciergeOpen] = useState(false);
+  const [conciergeInput, setConciergeInput] = useState('');
+  const [conciergeMessages, setConciergeMessages] = useState<ChatMessage[]>([initialConciergeMessage]);
+  const [conciergeTyping, setConciergeTyping] = useState(false);
   const [contactSent, setContactSent] = useState(false);
   const [newsletterSent, setNewsletterSent] = useState(false);
   const [contact, setContact] = useState({ name: '', email: '', message: '' });
+  const conciergeInputRef = useRef<HTMLInputElement>(null);
+  const conciergeMessagesRef = useRef<HTMLDivElement>(null);
+  const conciergeTimerRef = useRef<number | null>(null);
+  const nextConciergeMessageId = useRef(2);
 
   const estimate = useMemo(() => {
     const destination = destinations.find((item) => item.id === selectedDestination) ?? destinations[0];
@@ -151,6 +208,72 @@ function Home() {
 
   function toggleSaved(id: string) {
     setSaved((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
+  }
+
+  useEffect(() => {
+    if (!conciergeOpen) return;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setConciergeOpen(false);
+    };
+
+    window.addEventListener('keydown', handleEscape);
+    window.setTimeout(() => conciergeInputRef.current?.focus(), 0);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [conciergeOpen]);
+
+  useEffect(() => {
+    if (!conciergeOpen || !conciergeMessagesRef.current) return;
+    const messagesElement = conciergeMessagesRef.current;
+    messagesElement.scrollTo({ top: messagesElement.scrollHeight, behavior: 'smooth' });
+  }, [conciergeMessages, conciergeTyping, conciergeOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (conciergeTimerRef.current !== null) window.clearTimeout(conciergeTimerRef.current);
+    };
+  }, []);
+
+  function sendConciergeMessage(message: string) {
+    const trimmedMessage = message.trim();
+    if (!trimmedMessage || conciergeTyping) return;
+
+    const userMessage: ChatMessage = {
+      id: nextConciergeMessageId.current++,
+      role: 'user',
+      text: trimmedMessage,
+    };
+    setConciergeMessages((current) => [...current, userMessage]);
+    setConciergeInput('');
+    setConciergeTyping(true);
+
+    conciergeTimerRef.current = window.setTimeout(() => {
+      setConciergeMessages((current) => [
+        ...current,
+        {
+          id: nextConciergeMessageId.current++,
+          role: 'assistant',
+          text: getConciergeReply(trimmedMessage),
+        },
+      ]);
+      setConciergeTyping(false);
+      conciergeTimerRef.current = null;
+    }, 650);
+  }
+
+  function submitConcierge(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    sendConciergeMessage(conciergeInput);
+  }
+
+  function resetConcierge() {
+    if (conciergeTimerRef.current !== null) {
+      window.clearTimeout(conciergeTimerRef.current);
+      conciergeTimerRef.current = null;
+    }
+    setConciergeMessages([initialConciergeMessage]);
+    setConciergeInput('');
+    setConciergeTyping(false);
   }
 
   return (
@@ -434,22 +557,82 @@ function Home() {
         </div>
       </footer>
 
-      <div>
-        <button 
-          className="concierge" 
-          onClick={() => setConciergeOpen((open) => !open)} 
-          title="Open Wanderlust concierge" 
-          aria-label="Open Wanderlust concierge" 
+      <div className="concierge-shell">
+        {conciergeOpen && (
+          <section className="concierge-drawer" role="dialog" aria-modal="false" aria-labelledby="concierge-title" data-testid="drawer-concierge">
+            <div className="concierge-header">
+              <div className="concierge-heading">
+                <span className="concierge-avatar"><Plane size={16} /></span>
+                <div>
+                  <h2 id="concierge-title">Wanderlust concierge</h2>
+                  <p><span className="concierge-status-dot" /> Ready to help you wander</p>
+                </div>
+              </div>
+              <div className="concierge-actions">
+                <button type="button" className="concierge-icon-button" onClick={resetConcierge} aria-label="Start a new concierge chat" title="Start a new chat" data-testid="button-concierge-reset">
+                  <X size={15} />
+                </button>
+                <button type="button" className="concierge-icon-button" onClick={() => setConciergeOpen(false)} aria-label="Close concierge" title="Close concierge" data-testid="button-concierge-close">
+                  <X size={18} />
+                </button>
+              </div>
+            </div>
+
+            <div className="concierge-messages" ref={conciergeMessagesRef} aria-live="polite" data-testid="list-concierge-messages">
+              {conciergeMessages.map((message) => (
+                <div className={`concierge-message-row ${message.role}`} key={message.id}>
+                  {message.role === 'assistant' && <span className="message-avatar"><Plane size={12} /></span>}
+                  <div className="concierge-message">{message.text}</div>
+                </div>
+              ))}
+              {conciergeTyping && (
+                <div className="concierge-message-row assistant" data-testid="status-concierge-typing">
+                  <span className="message-avatar"><Plane size={12} /></span>
+                  <div className="concierge-message typing-indicator" aria-label="Concierge is typing"><i /><i /><i /></div>
+                </div>
+              )}
+            </div>
+
+            {conciergeMessages.length === 1 && !conciergeTyping && (
+              <div className="concierge-prompts" aria-label="Suggested questions">
+                {['Plan a Maldives escape', 'Which destination fits a family?', 'How should I think about budget?'].map((prompt) => (
+                  <button type="button" key={prompt} onClick={() => sendConciergeMessage(prompt)} data-testid={`button-concierge-prompt-${prompt.slice(0, 5).toLowerCase()}`}>
+                    {prompt}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <form className="concierge-form" onSubmit={submitConcierge}>
+              <label className="sr-only" htmlFor="concierge-input">Ask the Wanderlust concierge</label>
+              <input
+                id="concierge-input"
+                ref={conciergeInputRef}
+                value={conciergeInput}
+                onChange={(event) => setConciergeInput(event.target.value)}
+                placeholder="Ask about a destination..."
+                autoComplete="off"
+                disabled={conciergeTyping}
+                data-testid="input-concierge"
+              />
+              <button type="submit" aria-label="Send message" disabled={!conciergeInput.trim() || conciergeTyping} data-testid="button-concierge-send">
+                <Send size={16} />
+              </button>
+            </form>
+            <p className="concierge-disclaimer">Helpful starting points, not a substitute for live travel advice.</p>
+          </section>
+        )}
+
+        <button
+          className={`concierge ${conciergeOpen ? 'is-open' : ''}`}
+          onClick={() => setConciergeOpen((open) => !open)}
+          title={conciergeOpen ? 'Close Wanderlust concierge' : 'Open Wanderlust concierge'}
+          aria-label={conciergeOpen ? 'Close Wanderlust concierge' : 'Open Wanderlust concierge'}
+          aria-expanded={conciergeOpen}
           data-testid="button-concierge"
         >
-          <MessageCircle size={22} />
+          {conciergeOpen ? <X size={22} /> : <MessageCircle size={22} />}
         </button>
-
-        {conciergeOpen && (
-          <div className="toast-note" role="status" data-testid="status-concierge">
-            Concierge coming along — ask us anything about your next journey.
-          </div>
-        )}
       </div>
       </main>
       );
