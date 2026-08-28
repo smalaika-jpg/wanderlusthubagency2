@@ -6,7 +6,7 @@ import {
 import { useState, useMemo, useEffect, useRef, FormEvent } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const aboutCafeImage = 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1100&q=85';
+const aboutTravelImage = 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1100&q=85';
 
 const queryClient = new QueryClient();
 
@@ -419,7 +419,7 @@ export function Home() {
 
       <section id="about" className="section-pad">
         <div className="container about-grid">
-          <div className="about-visual" style={{ backgroundImage: `url(${aboutCafeImage})` }}>
+          <div className="about-visual" style={{ backgroundImage: `url(${aboutTravelImage})` }}>
             <div className="experience-badge">15+ Years<br />of<br />Experience</div>
           </div>
           <div className="about-copy">
