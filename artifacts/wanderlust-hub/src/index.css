@@ -477,29 +477,66 @@ textarea.contact-input { min-height: 120px; resize: vertical; }
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background-color: #f8fafc;
+  background-color: #ffffff;
+}
+
+.concierge-msg {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.concierge-msg.assistant {
+  background-color: #f1f5f9;
+  color: #1e293b;
+  align-self: flex-start;
+  border-bottom-left-radius: 2px;
+}
+
+.concierge-msg.user {
+  background-color: #0f2b26;
+  color: #ffffff;
+  align-self: flex-end;
+  border-bottom-right-radius: 2px;
+}
+
+.concierge-input-form {
+  padding: 12px;
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  gap: 8px;
+}
+
+.concierge-input-form input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  outline: none;
+  font-size: 13px;
+}
+
+.concierge-input-form input:focus {
+  border-color: #0f2b26;
 }
 
 .concierge-input-form button {
   background-color: #0f2b26;
   color: #ffffff;
   border: none;
-  border-radius: 8px;
   width: 36px;
-  margin-left: 8px;
+  height: 36px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-/* Fix for About Us Image Collapse & Badge Cutoff */
-.about-visual {
-  min-height: 380px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 12px;
-  position: relative;
-  padding: 30px 0 0 30px;
+.concierge-input-form button:hover {
+  background-color: #1a443d;
 }
