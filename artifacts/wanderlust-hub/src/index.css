@@ -269,16 +269,6 @@
   letter-spacing: .01em; 
   box-shadow: 0 9px 20px rgba(217,119,92,.24); 
 }
-  /* Wanderlust Hub - Main Stylesheet */
-:root {
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  --color-primary: #111827;
-  --color-accent: #f59e0b;
-  --color-bg: #fcfbf7;
-  --color-card: #ffffff;
-  --color-border: #e5e7eb;
-  --color-muted: #6b7280;
-}
 
 * {
   box-sizing: border-box;
@@ -369,118 +359,6 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-}
-
-/* Hero Section */
-.hero {
-  position: relative;
-  padding: 5rem 0 8rem;
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1600&q=85') center/cover;
-  color: white;
-  text-align: center;
-}
-
-.hero-content {
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  color: var(--color-accent);
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-}
-
-.hero h1 {
-  font-size: 3rem;
-  font-weight: 800;
-  line-height: 1.1;
-  margin-bottom: 1rem;
-}
-
-.hero h1 em {
-  font-style: italic;
-  font-weight: 300;
-}
-
-.hero-copy {
-  font-size: 1.1rem;
-  opacity: 0.9;
-  margin-bottom: 1.5rem;
-}
-
-.hero-note {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4px);
-  padding: 0.35rem 0.85rem;
-  border-radius: 50px;
-  font-size: 0.85rem;
-}
-
-/* Search Panel */
-.search-panel {
-  position: absolute;
-  bottom: -35px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(90%, 1000px);
-  background: white;
-  color: var(--color-primary);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr) auto;
-  gap: 1rem;
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  align-items: center;
-}
-
-.search-field {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 1rem;
-  background: #f9fafb;
-  border-radius: 8px;
-  border: 1px solid var(--color-border);
-}
-
-.search-field select, .search-field input {
-  width: 100%;
-  border: none;
-  background: transparent;
-  font-size: 0.95rem;
-  outline: none;
-}
-
-.search-field label {
-  display: block;
-  font-size: 0.75rem;
-  color: var(--color-muted);
-}
-
-.search-submit {
-  background: var(--color-accent);
-  color: white;
-  border: none;
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: opacity 0.2s;
-}
-
-.search-submit:hover {
-  opacity: 0.9;
 }
 
 /* Sections */
@@ -652,32 +530,11 @@ body {
   gap: 0.25rem;
 }
 
-.perks {
-  display: flex;
-  gap: 0.75rem;
-  font-size: 0.8rem;
-  color: var(--color-muted);
-}
-
-.perk {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-}
-
-.getting-around {
-  display: flex;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  color: var(--color-muted);
-  background: #f9fafb;
-  padding: 0.5rem;
-  border-radius: 6px;
-}
-
+/* Hidden Elements for Destination Cards */
+.perks,
+.getting-around,
 .style-line {
-  font-size: 0.8rem;
-  color: var(--color-muted);
+  display: none;
 }
 
 .card-footer {
@@ -807,13 +664,6 @@ body {
 }
 
 /* About Grid */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-}
-
 .about-visual-wrapper {
   position: relative;
   height: 400px;
@@ -825,24 +675,6 @@ body {
   background-size: cover;
   background-position: center;
   border-radius: 12px;
-}
-
-.experience-badge {
-  position: absolute;
-  bottom: -20px;
-  right: -20px;
-  background: var(--color-accent);
-  color: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-
-.experience-badge strong {
-  display: block;
-  font-size: 2rem;
-  line-height: 1;
 }
 
 .about-copy p {
@@ -925,10 +757,11 @@ body {
   opacity: 0.3;
 }
 
-/* Contact Box */
+/* Contact Box (Restored to Deep Navy) */
 .contact-box {
-  background: #f9fafb;
-  border: 1px solid var(--color-border);
+  background: var(--deep);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 4rem;
   display: grid;
@@ -938,7 +771,7 @@ body {
 
 .contact-aside p {
   margin: 1rem 0 2rem;
-  color: var(--color-muted);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .email-line {
@@ -946,10 +779,12 @@ body {
   align-items: center;
   gap: 0.5rem;
   font-weight: 600;
+  color: #fff;
 }
 
 .contact-form h3 {
   margin-bottom: 1rem;
+  color: #fff;
 }
 
 .form-stack {
@@ -960,11 +795,16 @@ body {
 
 .contact-input {
   padding: 0.75rem 1rem;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 6px;
-  background: white;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
   font-family: inherit;
   font-size: 0.95rem;
+}
+
+.contact-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 textarea.contact-input {
@@ -973,8 +813,8 @@ textarea.contact-input {
 }
 
 .button-primary {
-  background: var(--color-primary);
-  color: white;
+  background: var(--sun);
+  color: var(--deep);
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
@@ -990,16 +830,17 @@ textarea.contact-input {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #059669;
+  color: #34d399;
   font-size: 0.9rem;
   margin-top: 0.5rem;
 }
 
-/* Footer */
+/* Footer (Restored to Deep Navy) */
 .footer {
-  background: #0b0f19;
+  background: var(--deep);
   color: white;
   padding: 4rem 0 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-grid {
@@ -1009,7 +850,7 @@ textarea.contact-input {
 }
 
 .footer-mission {
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
   max-width: 300px;
   margin: 1rem 0;
@@ -1036,7 +877,7 @@ textarea.contact-input {
   font-size: 0.85rem;
   letter-spacing: 0.05em;
   margin-bottom: 1rem;
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .footer-links {
@@ -1055,7 +896,7 @@ textarea.contact-input {
   border-top: 1px solid rgba(255,255,255,0.1);
   padding-top: 2rem;
   text-align: center;
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.85rem;
 }
 
@@ -1068,7 +909,7 @@ textarea.contact-input {
 }
 
 .concierge-trigger {
-  background: var(--color-primary);
+  background: var(--deep);
   color: white;
   border: none;
   padding: 0.75rem 1.25rem;
@@ -1094,7 +935,7 @@ textarea.contact-input {
 }
 
 .concierge-header {
-  background: var(--color-primary);
+  background: var(--deep);
   color: white;
   padding: 1rem;
   display: flex;
@@ -1142,6 +983,7 @@ textarea.contact-input {
   border-radius: 8px;
   font-size: 0.85rem;
   line-height: 1.4;
+  color: var(--ink);
 }
 
 .concierge-msg.assistant {
@@ -1151,7 +993,7 @@ textarea.contact-input {
 }
 
 .concierge-msg.user {
-  background: var(--color-primary);
+  background: var(--deep);
   color: white;
   align-self: flex-end;
 }
@@ -1171,10 +1013,11 @@ textarea.contact-input {
   border-radius: 6px;
   font-size: 0.85rem;
   outline: none;
+  color: var(--ink);
 }
 
 .concierge-input-form button {
-  background: var(--color-primary);
+  background: var(--deep);
   color: white;
   border: none;
   width: 36px;
@@ -1193,9 +1036,4 @@ textarea.contact-input {
   .search-panel { position: relative; bottom: auto; left: auto; transform: none; width: 100%; grid-template-columns: 1fr; margin-top: 2rem; }
   .estimator-inner, .about-grid, .services-grid, .contact-box { grid-template-columns: 1fr; gap: 2rem; }
   .footer-grid { flex-direction: column; gap: 2rem; }
-}
-.perks,
-.getting-around,
-.style-line {
-  display: none;
 }
