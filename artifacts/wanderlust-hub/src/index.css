@@ -1194,3 +1194,8 @@ textarea.contact-input {
   .estimator-inner, .about-grid, .services-grid, .contact-box { grid-template-columns: 1fr; gap: 2rem; }
   .footer-grid { flex-direction: column; gap: 2rem; }
 }
+.perks,
+.getting-around,
+.style-line {
+  display: none;
+}
