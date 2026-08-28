@@ -1,10 +1,10 @@
 import {
-  Plane, Globe2, ArrowUpRight, Menu, X, Compass, MapPin, CalendarDays,
+  Plane, Globe2, Menu, X, Compass, MapPin, CalendarDays,
   Users, Search, Heart, Star, ExternalLink, Check, Ship, Train, Bus,
   BadgeCheck, Hotel, MessageCircle, Send, Instagram, Linkedin, Mail
 } from 'lucide-react';
 import { useState, useMemo, useEffect, useRef, FormEvent } from 'react';
-import { QueryClient } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const aboutCafeImage = 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1100&q=85';
 
@@ -459,4 +459,122 @@ export function Home() {
 
       <section id="contact" className="section-pad">
         <div className="container contact-box">
-          <div className
+          <div className="contact-aside">
+            <div className="eyebrow">Let’s talk about going</div>
+            <h2>Bring us your maybe.</h2>
+            <p>Have a destination in mind, or just a feeling? Tell us what you are dreaming about and we will point you in a promising direction.</p>
+            <div className="email-line"><Mail size={16} /> wanderlusthubagency@gmail.com</div>
+          </div>
+          <form className="contact-form" onSubmit={submitContact}>
+            <h3>Send a note</h3>
+            <div className="form-stack">
+              <input className="contact-input" aria-label="Full Name" placeholder="Full Name" value={contact.name} onChange={(event) => setContact({ ...contact, name: event.target.value })} data-testid="input-contact-name" />
+              <input className="contact-input" type="email" aria-label="Email Address" placeholder="Email Address" value={contact.email} onChange={(event) => setContact({ ...contact, email: event.target.value })} data-testid="input-contact-email" />
+              <textarea className="contact-input" aria-label="Message" placeholder="Tell us where your curiosity is taking you..." value={contact.message} onChange={(event) => setContact({ ...contact, message: event.target.value })} data-testid="input-contact-message" />
+              <button className="button-primary" type="submit" data-testid="button-contact-submit">Send my note <Send size={15} /></button>
+            </div>
+            {contactSent && <div className="form-success" role="status" data-testid="status-contact-success"><Check size={15} /> Thanks — your note is on its way. We will be in touch soon.</div>}
+          </form>
+        </div>
+      </section>
+
+      <footer className="footer">
+        <div className="container">
+          <div className="footer-grid">
+            <div>
+              <a href="#home" className="brand" data-testid="link-footer-brand"><span className="brand-mark"><Plane size={17} /></span><span>Wanderlust Hub</span></a>
+              <p className="footer-mission">Curated destination guidance for people who would rather collect stories than schedules.</p>
+              <div className="socials">
+                <a href="https://www.instagram.com/wanderlusthubagency/" target="_blank" rel="noreferrer" aria-label="Instagram" data-testid="link-social-instagram"><Instagram size={15} /></a>
+                <a href="https://www.linkedin.com/in/wanderlust-hub-agency-b55070431" target="_blank" rel="noreferrer" aria-label="LinkedIn" data-testid="link-social-linkedin"><Linkedin size={15} /></a>
+              </div>
+            </div>
+            <div>
+              <h4>QUICK LINKS</h4>
+              <div className="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#destinations">Destinations</a>
+                <a href="#services">Services</a>
+              </div>
+            </div>
+          </div>
+          <div className="footer-bottom">
+            <p>© {new Date().getFullYear()} Wanderlust Hub Agency. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+
+      {/* Embedded Floating AI Concierge Chatbot Widget */}
+      <div className="concierge-widget">
+        {!conciergeOpen && (
+          <button
+            onClick={() => setConciergeOpen(true)}
+            className="concierge-trigger"
+            aria-label="Open AI Concierge chat"
+            data-testid="button-concierge-toggle"
+          >
+            <MessageCircle size={22} />
+            <span>AI Concierge</span>
+          </button>
+        )}
+
+        {conciergeOpen && (
+          <div className="concierge-window" data-testid="pane-concierge">
+            <div className="concierge-header">
+              <div className="concierge-title-wrap">
+                <span className="concierge-dot" />
+                <h3>Wanderlust Concierge</h3>
+              </div>
+              <button
+                onClick={() => setConciergeOpen(false)}
+                className="concierge-close"
+                aria-label="Close chat"
+                data-testid="button-concierge-close"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="concierge-messages" ref={conciergeMessagesRef}>
+              {conciergeMessages.map((msg) => (
+                <div key={msg.id} className={`concierge-msg ${msg.role}`}>
+                  <p>{msg.text}</p>
+                </div>
+              ))}
+              {conciergeTyping && (
+                <div className="concierge-msg assistant typing">
+                  <span></span><span></span><span></span>
+                </div>
+              )}
+            </div>
+
+            <form className="concierge-input-form" onSubmit={submitConcierge}>
+              <input
+                ref={conciergeInputRef}
+                type="text"
+                placeholder="Ask about destinations, budgets, or stays..."
+                value={conciergeInput}
+                onChange={(e) => setConciergeInput(e.target.value)}
+                data-testid="input-concierge"
+              />
+              <button type="submit" aria-label="Send message" data-testid="button-concierge-send">
+                <Send size={15} />
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
+    </main>
+  );
+}
+
+export function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Home />
+    </QueryClientProvider>
+  );
+}
+
+export default App;
