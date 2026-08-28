@@ -219,10 +219,10 @@
 .daily-total { color: var(--sea-dark); font-size: 12px; font-weight: 700; text-align: right; }
 
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 85px; align-items: center; }
-.about-visual { position: relative; padding: 0 28px 28px 0; }
+.about-visual { position: relative; padding: 30px 0 0 30px; }
 .about-visual img { width: 100%; height: 495px; display: block; object-fit: cover; border-radius: 18px; }
 .about-visual::after { content: ""; position: absolute; z-index: -1; right: 0; bottom: 0; width: 78%; height: 76%; border-radius: 18px; background: var(--sun); }
-.experience-badge { position: absolute; z-index: 2; right: -18px; top: -18px; display: grid; place-items: center; width: 148px; height: 148px; padding: 19px; border-radius: 50%; background: var(--coral); color: #fff; font-family: var(--app-font-sans); font-size: 14px; font-weight: 800; line-height: 1.2; text-align: center; letter-spacing: .01em; box-shadow: 0 9px 20px rgba(217,119,92,.24); }
+.experience-badge { position: absolute; z-index: 2; right: -10px; top: 0px; display: grid; place-items: center; width: 140px; height: 140px; padding: 19px; border-radius: 50%; background: var(--coral); color: #fff; font-family: var(--app-font-sans); font-size: 14px; font-weight: 800; line-height: 1.2; text-align: center; letter-spacing: .01em; box-shadow: 0 9px 20px rgba(217,119,92,.24); }
 .about-copy h2 { margin: 18px 0; font-family: var(--app-font-serif); font-size: clamp(38px, 5vw, 63px); line-height: .98; letter-spacing: -.055em; }
 .about-copy p { color: #5c757b; line-height: 1.8; }
 .about-points { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 28px; }
@@ -387,7 +387,8 @@ textarea.contact-input { min-height: 120px; resize: vertical; }
   .search-field label { font-size: 9px; }
   .search-field select, .search-field input { font-size: 11px; }
 }
-  /* AI Concierge Chatbot Widget Styles */
+
+/* AI Concierge Chatbot Widget Styles */
 .concierge-widget {
   position: fixed;
   bottom: 24px;
@@ -479,71 +480,6 @@ textarea.contact-input { min-height: 120px; resize: vertical; }
   background-color: #f8fafc;
 }
 
-.concierge-msg {
-  max-width: 80%;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-size: 13.5px;
-  line-height: 1.4;
-}
-
-.concierge-msg.assistant {
-  background-color: #e2e8f0;
-  color: #1e293b;
-  align-self: flex-start;
-  border-bottom-left-radius: 2px;
-}
-
-.concierge-msg.user {
-  background-color: #0f2b26;
-  color: #ffffff;
-  align-self: flex-end;
-  border-bottom-right-radius: 2px;
-}
-
-.concierge-msg.typing {
-  display: flex;
-  gap: 4px;
-  padding: 14px;
-  align-items: center;
-}
-
-.concierge-msg.typing span {
-  width: 6px;
-  height: 6px;
-  background-color: #94a3b8;
-  border-radius: 50%;
-  animation: bounce 1.4s infinite ease-in-out both;
-}
-
-.concierge-msg.typing span:nth-child(1) { animation-delay: -0.32s; }
-.concierge-msg.typing span:nth-child(2) { animation-delay: -0.16s; }
-
-@keyframes bounce {
-  0%, 80%, 100% { transform: scale(0); }
-  40% { transform: scale(1.0); }
-}
-
-.concierge-input-form {
-  display: flex;
-  padding: 12px;
-  background-color: #ffffff;
-  border-top: 1px solid #e2e8f0;
-}
-
-.concierge-input-form input {
-  flex: 1;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 13px;
-  outline: none;
-}
-
-.concierge-input-form input:focus {
-  border-color: #0f2b26;
-}
-
 .concierge-input-form button {
   background-color: #0f2b26;
   color: #ffffff;
@@ -557,7 +493,7 @@ textarea.contact-input { min-height: 120px; resize: vertical; }
   cursor: pointer;
 }
 
-/* Fix for About Us Image Collapse */
+/* Fix for About Us Image Collapse & Badge Cutoff */
 .about-visual {
   min-height: 380px;
   background-size: cover;
@@ -565,4 +501,5 @@ textarea.contact-input { min-height: 120px; resize: vertical; }
   background-repeat: no-repeat;
   border-radius: 12px;
   position: relative;
+  padding: 30px 0 0 30px;
 }
