@@ -1,15 +1,11 @@
 import {
   Plane, Globe2, ArrowUpRight, Menu, X, Compass, MapPin, CalendarDays,
   Users, Search, Heart, Star, ExternalLink, Check, Ship, Train, Bus,
-  BadgeCheck, Hotel, MessageCircle, Send, Instagram, Linkedin, ChevronRight, Mail
+  BadgeCheck, Hotel, MessageCircle, Send, Instagram, Linkedin, Mail
 } from 'lucide-react';
-import { useState, useMemo, useEffect, useRef, ReactNode, FormEvent } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ErrorBoundary } from '@/components/error-boundary';
-import { Toaster } from '@/components/ui/toaster';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import NotFound from '@/pages/not-found';
-import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
+import { useState, useMemo, useEffect, useRef, FormEvent } from 'react';
+import { QueryClient } from '@tanstack/react-query';
+
 const aboutCafeImage = 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1100&q=85';
 
 const queryClient = new QueryClient();
@@ -32,10 +28,10 @@ const destinations = [
     reviews: '124',
     hotel: '4-Star Beach Villa',
     highlights: [
-      { name: 'Malé', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Malé+Maldives' },
-      { name: 'Baa Atoll', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Baa+Atoll+Maldives' },
-      { name: 'Ari Atoll', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Ari+Atoll+Maldives' },
-      { name: 'Vaavu Atoll', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Vaavu+Atoll+Maldives' },
+      { name: 'Malé', mapUrl: 'https://maps.google.com' },
+      { name: 'Baa Atoll', mapUrl: 'https://maps.google.com' },
+      { name: 'Ari Atoll', mapUrl: 'https://maps.google.com' },
+      { name: 'Vaavu Atoll', mapUrl: 'https://maps.google.com' },
     ],
     perks: ['Free Cancellation', 'DIY-Friendly', 'Hotel Hopping'],
     transport: 'Speedboats and domestic flights connect the atolls with ease.',
@@ -53,10 +49,10 @@ const destinations = [
     reviews: '89',
     hotel: 'Alpine Boutique Lodge',
     highlights: [
-      { name: 'Matterhorn', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Matterhorn+Switzerland' },
-      { name: 'Gornergrat', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Gornergrat+Zermatt+Switzerland' },
-      { name: 'Riffelsee', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Riffelsee+Zermatt+Switzerland' },
-      { name: 'Zermatt Village', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Zermatt+Village+Switzerland' },
+      { name: 'Matterhorn', mapUrl: 'https://maps.google.com' },
+      { name: 'Gornergrat', mapUrl: 'https://maps.google.com' },
+      { name: 'Riffelsee', mapUrl: 'https://maps.google.com' },
+      { name: 'Zermatt Village', mapUrl: 'https://maps.google.com' },
     ],
     perks: ['Flexible Dates', 'DIY-Friendly', 'Hotel Hopping'],
     transport: 'Trains, buses, and cable cars make every mountain view reachable.',
@@ -74,10 +70,10 @@ const destinations = [
     reviews: '210',
     hotel: 'Caldera-View Suite',
     highlights: [
-      { name: 'Oia', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Oia+Santorini+Greece' },
-      { name: 'Fira', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Fira+Santorini+Greece' },
-      { name: 'Imerovigli', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Imerovigli+Santorini+Greece' },
-      { name: 'Akrotiri', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Akrotiri+Santorini+Greece' },
+      { name: 'Oia', mapUrl: 'https://maps.google.com' },
+      { name: 'Fira', mapUrl: 'https://maps.google.com' },
+      { name: 'Imerovigli', mapUrl: 'https://maps.google.com' },
+      { name: 'Akrotiri', mapUrl: 'https://maps.google.com' },
     ],
     perks: ['Free Cancellation', 'Expert-Led', 'Hotel Hopping'],
     transport: 'Local buses, ferries, and quick gyros keep the caldera days fluid.',
@@ -138,18 +134,6 @@ function getConciergeReply(question: string) {
     return 'Our destination cards show a reference stay for each guide, plus a live price-comparison link. Use “Check prices” to compare current availability, then keep the rest of your itinerary flexible around the stay you like.';
   }
 
-  if (normalized.includes('season') || normalized.includes('when') || normalized.includes('weather') || normalized.includes('best time')) {
-    return 'A simple rule: choose your dates around the experience you want, not just a perfect forecast. Aim for a shoulder season when you can, and check the destination card plus live hotel availability before locking anything in.';
-  }
-
-  if (normalized.includes('family') || normalized.includes('children') || normalized.includes('kids')) {
-    return 'For a family-friendly starting point, Switzerland’s predictable trains and easy day trips are wonderfully low-stress. If everyone wants water and downtime, the Maldives works best with fewer island changes and a longer stay in one place.';
-  }
-
-  if (normalized.includes('hello') || normalized.includes('hi') || normalized.includes('help')) {
-    return 'Absolutely. I can help you compare the Maldives, Switzerland, and Santorini, think through timing, find a stay style, or make sense of the trip budget. What are you leaning toward?';
-  }
-
   return 'That sounds like the beginning of a good trip. I can help narrow down Maldives, Switzerland, or Santorini, compare travel styles, think through timing, and point you to hotel price comparisons. What matters most: scenery, rest, food, or keeping the budget light?';
 }
 
@@ -172,8 +156,8 @@ export function Home() {
   const [conciergeMessages, setConciergeMessages] = useState<ChatMessage[]>([initialConciergeMessage]);
   const [conciergeTyping, setConciergeTyping] = useState(false);
   const [contactSent, setContactSent] = useState(false);
-  const [newsletterSent, setNewsletterSent] = useState(false);
   const [contact, setContact] = useState({ name: '', email: '', message: '' });
+  
   const conciergeInputRef = useRef<HTMLInputElement>(null);
   const conciergeMessagesRef = useRef<HTMLDivElement>(null);
   const conciergeTimerRef = useRef<number | null>(null);
@@ -201,22 +185,15 @@ export function Home() {
     setContact({ name: '', email: '', message: '' });
   }
 
-  function submitNewsletter(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setNewsletterSent(true);
-  }
-
   function toggleSaved(id: string) {
     setSaved((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
   }
 
   useEffect(() => {
     if (!conciergeOpen) return;
-
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setConciergeOpen(false);
     };
-
     window.addEventListener('keydown', handleEscape);
     window.setTimeout(() => conciergeInputRef.current?.focus(), 0);
     return () => window.removeEventListener('keydown', handleEscape);
@@ -227,12 +204,6 @@ export function Home() {
     const messagesElement = conciergeMessagesRef.current;
     messagesElement.scrollTo({ top: messagesElement.scrollHeight, behavior: 'smooth' });
   }, [conciergeMessages, conciergeTyping, conciergeOpen]);
-
-  useEffect(() => {
-    return () => {
-      if (conciergeTimerRef.current !== null) window.clearTimeout(conciergeTimerRef.current);
-    };
-  }, []);
 
   function sendConciergeMessage(message: string) {
     const trimmedMessage = message.trim();
@@ -266,16 +237,6 @@ export function Home() {
     sendConciergeMessage(conciergeInput);
   }
 
-  function resetConcierge() {
-    if (conciergeTimerRef.current !== null) {
-      window.clearTimeout(conciergeTimerRef.current);
-      conciergeTimerRef.current = null;
-    }
-    setConciergeMessages([initialConciergeMessage]);
-    setConciergeInput('');
-    setConciergeTyping(false);
-  }
-
   return (
     <main className="site">
       <header className="topbar">
@@ -307,7 +268,6 @@ export function Home() {
             >
               {Object.keys(currencies).map((code) => <option key={code} value={code}>{code}</option>)}
             </select>
-            <a className="nav-cta" href="#contact" data-testid="link-book-now">Book Now <ArrowUpRight size={14} /></a>
           </div>
           <button className="menu-button" onClick={() => setMenuOpen((open) => !open)} aria-label="Toggle navigation menu" data-testid="button-mobile-menu">
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -320,7 +280,6 @@ export function Home() {
               ].map(([label, id]) => (
                 <a href={`#${id}`} key={id} onClick={() => setMenuOpen(false)} data-testid={`link-mobile-${id}`}>{label}</a>
               ))}
-              <a href="#contact" onClick={() => setMenuOpen(false)} data-testid="link-mobile-book">Book Now <ArrowUpRight size={14} /></a>
             </nav>
           )}
         </div>
@@ -369,7 +328,7 @@ export function Home() {
             <div className="section-heading">
               <div className="eyebrow">The edited collection</div>
               <h2>Curated guides,<br /><em>better stays.</em></h2>
-              <p>Wanderlust Hub: Curated Guides &amp; Top Hotel Deals. We do the legwork, so you can spend your energy picturing the view.</p>
+              <p>Wanderlust Hub: Curated Guides & Top Hotel Deals. We do the legwork, so you can spend your energy picturing the view.</p>
             </div>
             <div className="intro-stamp" aria-label="Independent travel guidance">Go<br />somewhere<br />wonderful</div>
           </div>
@@ -400,7 +359,7 @@ export function Home() {
                     <div className="highlights">{destination.highlights.map((highlight) => <a href={highlight.mapUrl} target="_blank" rel="noreferrer" key={highlight.name}>{highlight.name} <ExternalLink size={10} /></a>)}</div>
                     <div className="perks">{destination.perks.map((perk) => <span className="perk" key={perk}><Check size={12} />{perk}</span>)}</div>
                     <div className="getting-around"><TransportIcon size={16} /><span><strong>Getting around:</strong> {destination.transport}</span></div>
-                    <div className="style-line"><strong>Itinerary styles:</strong> Fast &amp; Cheap / Slow &amp; Savvy</div>
+                    <div className="style-line"><strong>Itinerary styles:</strong> Fast & Cheap / Slow & Savvy</div>
                     <div className="card-footer">
                       <div><div className="price-label">Reference budget</div><div className="price">{money(destination.budget, currency)} <small>· {destination.duration}</small></div></div>
                       <a className="price-link" href={stay22Links[destination.id]} target="_blank" rel="noreferrer" data-testid={`link-stay22-${destination.id}`}>Check prices <ExternalLink size={12} /></a>
@@ -498,163 +457,6 @@ export function Home() {
         </div>
       </section>
 
-      <section className="section-pad testimonials">
-        <div className="container">
-          <div className="eyebrow">Postcards from our travelers</div>
-          <h2>What Our Travelers Say</h2>
-          <div className="testimonial-grid">
-            {[
-              ['SJ', 'Sarah Johnson', 'Travel Enthusiast', 'The Maldives guide gave us the freedom to island-hop without the usual research spiral. Every recommendation felt like a secret worth keeping.'],
-              ['MC', 'Marcus Chen', 'Adventure Seeker', 'The Swiss Alps route was spot on. We swapped a couple of stays, followed the trains, and still had a trip that felt completely ours.'],
-              ['ER', 'Elena Rossi', 'Honeymooner', 'Santorini was beyond beautiful, but the little timing tips made it feel effortless. We found our quiet caldera mornings and the best sunset table.'],
-            ].map(([initials, name, title, quote]) => (
-              <article className="testimonial" key={name} data-testid={`card-testimonial-${initials.toLowerCase()}`}>
-                <div><div className="quote-mark">“</div><p>{quote}</p></div>
-                <div className="traveler"><div className="avatar" data-testid={`avatar-${initials.toLowerCase()}`}>{initials}</div><div><strong>{name}</strong><span>{title}</span></div></div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section id="contact" className="section-pad">
         <div className="container contact-box">
-          <div className="contact-aside">
-            <div className="eyebrow">Let’s talk about going</div>
-            <h2>Bring us your maybe.</h2>
-            <p>Have a destination in mind, or just a feeling? Tell us what you are dreaming about and we will point you in a promising direction.</p>
-            <div className="email-line"><Mail size={16} /> wanderlusthubagency@gmail.com</div>
-          </div>
-          <form className="contact-form" onSubmit={submitContact}>
-            <h3>Send a note</h3>
-            <div className="form-stack">
-              <input className="contact-input" aria-label="Full Name" placeholder="Full Name" value={contact.name} onChange={(event) => setContact({ ...contact, name: event.target.value })} data-testid="input-contact-name" />
-              <input className="contact-input" type="email" aria-label="Email Address" placeholder="Email Address" value={contact.email} onChange={(event) => setContact({ ...contact, email: event.target.value })} data-testid="input-contact-email" />
-              <textarea className="contact-input" aria-label="Message" placeholder="Tell us where your curiosity is taking you..." value={contact.message} onChange={(event) => setContact({ ...contact, message: event.target.value })} data-testid="input-contact-message" />
-              <button className="button-primary" type="submit" data-testid="button-contact-submit">Send my note <Send size={15} /></button>
-            </div>
-            {contactSent && <div className="form-success" role="status" data-testid="status-contact-success"><Check size={15} /> Thanks — your note is on its way. We will be in touch soon.</div>}
-          </form>
-        </div>
-      </section>
-
-      <footer className="footer">
-        <div className="container">
-          <div className="footer-grid">
-            <div>
-              <a href="#home" className="brand" data-testid="link-footer-brand"><span className="brand-mark"><Plane size={17} /></span><span>Wanderlust Hub</span></a>
-              <p className="footer-mission">Curated destination guidance for people who would rather collect stories than schedules.</p>
-              <div className="socials">
-                <a href="https://www.instagram.com/wanderlusthubagency/" target="_blank" rel="noreferrer" aria-label="Instagram" data-testid="link-social-instagram"><Instagram size={15} /></a>
-                <a href="https://www.linkedin.com/in/wanderlust-hub-agency-b55070431" target="_blank" rel="noreferrer" aria-label="LinkedIn" data-testid="link-social-linkedin"><Linkedin size={15} /></a>
-              </div>
-            </div>
-            <div>
-              <h4>QUICK LINKS</h4>
-              <div className="footer-links">
-                <a href="#home" data-testid="link-footer-home">Home</a>
-                <a href="#about" data-testid="link-footer-about">About Us</a>
-                <a href="#destinations" data-testid="link-footer-destinations">Destinations</a>
-                <a href="#services" data-testid="link-footer-services">Services</a>
-                <a href="#contact" data-testid="link-footer-contact">Contact</a>
-              </div>
-            </div>
-            <div>
-              <h4>STAY UPDATED</h4>
-              <form className="newsletter-form" onSubmit={submitNewsletter}>
-                <p>Get occasional dispatches on new routes and seasonal notes.</p>
-                <div className="newsletter-row">
-                  <input type="email" placeholder="Your email address" aria-label="Email address for newsletter" required data-testid="input-newsletter-email" />
-                  <button type="submit" data-testid="button-newsletter-submit"><ArrowUpRight size={16} /></button>
-                </div>
-                {newsletterSent && <div className="newsletter-success" role="status" data-testid="status-newsletter-success">You’re on the list. Welcome aboard.</div>}
-              </form>
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <span>© {new Date().getFullYear()} Wanderlust Hub Agency. All rights reserved.</span>
-            <span>Curated travel guides &amp; hotel price discovery.</span>
-          </div>
-        </div>
-      </footer>
-
-      {/* Floating Concierge Drawer / Toggle */}
-      <div className="concierge-dock">
-        {!conciergeOpen && (
-          <button className="concierge-toggle" onClick={() => setConciergeOpen(true)} aria-label="Open AI Concierge" data-testid="button-concierge-toggle">
-            <MessageCircle size={20} />
-            <span>AI Concierge</span>
-          </button>
-        )}
-
-        {conciergeOpen && (
-          <div className="concierge-window" role="dialog" aria-label="AI Concierge chat" data-testid="concierge-window">
-            <div className="concierge-header">
-              <div className="concierge-title-wrap">
-                <span className="concierge-avatar"><Compass size={14} /></span>
-                <div>
-                  <strong>Wanderlust Concierge</strong>
-                  <span className="concierge-status">Online · Ready to help</span>
-                </div>
-              </div>
-              <div className="concierge-header-actions">
-                <button type="button" className="concierge-reset" onClick={resetConcierge} title="Reset conversation" data-testid="button-concierge-reset">Reset</button>
-                <button type="button" className="concierge-close" onClick={() => setConciergeOpen(false)} aria-label="Close chat" data-testid="button-concierge-close"><X size={18} /></button>
-              </div>
-            </div>
-
-            <div className="concierge-messages" ref={conciergeMessagesRef} data-testid="concierge-messages">
-              {conciergeMessages.map((message) => (
-                <div key={message.id} className={`concierge-bubble ${message.role}`} data-testid={`message-${message.role}-${message.id}`}>
-                  {message.text}
-                </div>
-              ))}
-              {conciergeTyping && (
-                <div className="concierge-bubble assistant typing" data-testid="message-typing">
-                  <span className="dot" /><span className="dot" /><span className="dot" />
-                </div>
-              )}
-            </div>
-
-            <div className="concierge-suggestions">
-              <button type="button" onClick={() => sendConciergeMessage('Tell me about the Maldives')} data-testid="suggestion-maldives">Maldives budget?</button>
-              <button type="button" onClick={() => sendConciergeMessage('What about Switzerland?')} data-testid="suggestion-switzerland">Switzerland tips</button>
-              <button type="button" onClick={() => sendConciergeMessage('Help me plan a family trip')} data-testid="suggestion-family">Family travel</button>
-            </div>
-
-            <form className="concierge-form" onSubmit={submitConcierge}>
-              <input
-                ref={conciergeInputRef}
-                type="text"
-                placeholder="Ask about destinations, budgets, or timing..."
-                value={conciergeInput}
-                onChange={(event) => setConciergeInput(event.target.value)}
-                aria-label="Ask a question to the concierge"
-                data-testid="input-concierge-message"
-              />
-              <button type="submit" aria-label="Send message" data-testid="button-concierge-send"><Send size={15} /></button>
-            </form>
-          </div>
-        )}
-      </div>
-    </main>
-  );
-}
-
-export default function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <ErrorBoundary>
-          <WouterRouter>
-            <Switch>
-              <Route path="/" component={Home} />
-              <Route component={NotFound} />
-            </Switch>
-          </WouterRouter>
-        </ErrorBoundary>
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
-}
+          <div className
