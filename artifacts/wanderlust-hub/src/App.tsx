@@ -419,8 +419,12 @@ export function Home() {
 
       <section id="about" className="section-pad">
         <div className="container about-grid">
-          <div className="about-visual" style={{ backgroundImage: `url(${aboutTravelImage})` }}>
-            <div className="experience-badge">15+ Years<br />of<br />Experience</div>
+          <div className="about-visual-wrapper">
+            <div className="about-visual" style={{ backgroundImage: `url(${aboutTravelImage})` }} />
+            <div className="experience-badge">
+              <strong>15+</strong>
+              <span>Years of Experience</span>
+            </div>
           </div>
           <div className="about-copy">
             <div className="eyebrow">A little more about us</div>
