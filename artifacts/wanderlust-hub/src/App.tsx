@@ -421,7 +421,7 @@ export function Home() {
         <div className="container about-grid">
           <div className="about-visual-wrapper">
             <div className="about-visual" style={{ backgroundImage: `url(${aboutTravelImage})` }} />
-            <div className="experience-badge">
+            <div className="experience-badge top-right">
               <strong>15+</strong>
               <span>Years of Experience</span>
             </div>
