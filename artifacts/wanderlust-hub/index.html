@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="src/index.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- Stay22 / Let Me Allez Tracking Script -->
   <script src="//scripts.stay22.com/letmeallez.js?aid=6a858623a25d8512b2551b75" async></<script>
   (function (s, t, a, y, twenty, two) {
     s.Stay22 = s.Stay22 || {};
@@ -20,109 +21,6 @@
 </script>>
 
   <style>
-    /* Chatbot Widget Styles */
-    .concierge-widget {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 1000;
-    }
-    .concierge-trigger {
-      background: var(--sea, #0e4c5a);
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 50px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      transition: transform 0.2s;
-    }
-    .concierge-trigger:hover {
-      transform: scale(1.05);
-    }
-    .chat-popup {
-      position: absolute;
-      bottom: 70px;
-      right: 0;
-      width: 320px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-      border: 1px solid rgba(0,0,0,0.1);
-    }
-    .chat-popup.active {
-      display: flex;
-    }
-    .chat-header {
-      background: var(--sea, #0e4c5a);
-      color: white;
-      padding: 14px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 600;
-    }
-    .chat-close {
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    .chat-body {
-      padding: 16px;
-      height: 240px;
-      overflow-y: auto;
-      font-size: 14px;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background: #f9f9f9;
-    }
-    .chat-message {
-      padding: 10px 12px;
-      border-radius: 8px;
-      max-width: 85%;
-      line-height: 1.4;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-    }
-    .chat-message.bot {
-      background: #e2e8f0;
-      align-self: flex-start;
-    }
-    .chat-footer {
-      padding: 10px;
-      display: flex;
-      gap: 8px;
-      border-top: 1px solid #eee;
-      background: white;
-    }
-    .chat-input {
-      flex: 1;
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      outline: none;
-      font-size: 13px;
-    }
-    .chat-send {
-      background: var(--sea, #0e4c5a);
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
     /* Fixed High Contrast Search Panel Fix */
     .search-panel {
       display: grid !important;
@@ -170,6 +68,7 @@
 </head>
 <body>
   <div class="site">
+    <!-- Topbar / Navbar -->
     <header class="topbar">
       <div class="container nav-inner">
         <a href="#home" class="brand">
@@ -205,6 +104,7 @@
       </div>
     </header>
 
+    <!-- Hero Section -->
     <section id="home" class="hero">
       <div class="container">
         <div class="hero-content">
@@ -216,6 +116,7 @@
           </div>
         </div>
 
+        <!-- Fully Fixed High-Contrast Search Panel -->
         <div class="search-panel">
           <div class="search-field">
             <i class="fa-solid fa-location-dot" style="color: var(--sea, #0e4c5a);"></i>
@@ -253,6 +154,7 @@
       </div>
     </section>
 
+    <!-- Destinations Section -->
     <section id="destinations" class="section-pad">
       <div class="container">
         <div class="intro-row">
@@ -267,6 +169,7 @@
         </div>
 
         <div class="destination-grid">
+          <!-- Card 1: Maldives -->
           <div class="destination-card">
             <div class="destination-photo">
               <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80" alt="Maldives">
@@ -308,6 +211,7 @@
             </div>
           </div>
 
+          <!-- Card 2: Switzerland -->
           <div class="destination-card">
             <div class="destination-photo">
               <img src="https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=800&q=80" alt="Switzerland">
@@ -349,6 +253,7 @@
             </div>
           </div>
 
+          <!-- Card 3: Santorini -->
           <div class="destination-card">
             <div class="destination-photo">
               <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=800&q=80" alt="Santorini">
@@ -393,6 +298,7 @@
       </div>
     </section>
 
+    <!-- Budget Estimator Section -->
     <section id="estimator" class="estimator-wrap section-pad">
       <div class="container">
         <div class="estimator-inner">
@@ -465,6 +371,7 @@
       </div>
     </section>
 
+    <!-- About Section -->
     <section id="about" class="section-pad">
       <div class="container">
         <div class="about-grid">
@@ -490,6 +397,7 @@
       </div>
     </section>
 
+    <!-- Services Section -->
     <section id="services" class="services-section section-pad">
       <div class="container">
         <div class="services-head">
@@ -530,6 +438,7 @@
       </div>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact" class="section-pad">
       <div class="container">
         <div class="contact-box">
@@ -556,6 +465,7 @@
       </div>
     </section>
 
+    <!-- Footer -->
     <footer class="footer">
       <div class="container">
         <div class="footer-grid" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem;">
@@ -587,173 +497,14 @@
         </div>
       </div>
     </footer>
-
-    <div class="concierge-widget">
-      <div class="chat-popup" id="chatPopup">
-        <div class="chat-header">
-          <span>AI Travel Concierge</span>
-          <button class="chat-close" id="chatClose"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="chat-body" id="chatBody">
-          <div class="chat-message bot">Hello! How can I help you plan your trip today? You can ask about our destinations (Maldives, Switzerland, Santorini), pricing, or custom itineraries!</div>
-        </div>
-        <div class="chat-footer">
-          <input type="text" class="chat-input" id="chatInput" placeholder="Type a message...">
-          <button class="chat-send" id="chatSend"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
-      </div>
-      <button class="concierge-trigger" id="conciergeTrigger" aria-label="Open AI Concierge">
-        <i class="fa-solid fa-robot"></i> AI Concierge
-      </button>
-    </div>
   </div>
 
+  <!-- Botpress Webchat Official Integration Scripts -->
+  <script src="https://cdn.botpress.cloud/webchat/v5.0/inject.js"></script>
+  <script src="https://files.bpcontent.cloud/2026/08/21/20/20260821203628-TC3K2QN5.js" defer></script>
+
+  <!-- Interactive Scripts (Budget Estimator & Currency Conversion Only) -->
   <script>
-    // Chatbot Toggle Functionality
-    const conciergeTrigger = document.getElementById('conciergeTrigger');
-    const chatPopup = document.getElementById('chatPopup');
-    const chatClose = document.getElementById('chatClose');
-    const chatSend = document.getElementById('chatSend');
-    const chatInput = document.getElementById('chatInput');
-    const chatBody = document.getElementById('chatBody');
-
-    if (conciergeTrigger && chatPopup) {
-      conciergeTrigger.addEventListener('click', () => {
-        chatPopup.classList.toggle('active');
-      });
-    }
-
-    if (chatClose && chatPopup) {
-      chatClose.addEventListener('click', () => {
-        chatPopup.classList.remove('active');
-      });
-    }
-
-    if (chatSend && chatInput && chatBody) {
-      chatSend.addEventListener('click', sendMessage);
-      chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-      });
-    }
-
-    // Keep track of the last discussed destination in the chat
-    let lastMentionedDestination = 'switzerland';
-
-    function sendMessage() {
-      const text = chatInput.value.trim();
-      if (!text) return;
-
-      // User Message
-      const userMsg = document.createElement('div');
-      userMsg.className = 'chat-message';
-      userMsg.style.alignSelf = 'flex-end';
-      userMsg.style.background = 'var(--sea)';
-      userMsg.style.color = 'white';
-      userMsg.textContent = text;
-      chatBody.appendChild(userMsg);
-
-      chatInput.value = '';
-      chatBody.scrollTop = chatBody.scrollHeight;
-
-      // Intelligent Context-Aware Bot Response Generator
-      setTimeout(() => {
-        const query = text.toLowerCase();
-        let replyText = "That sounds like an amazing journey! Feel free to check our destination guides above or use the Budget Estimator to calculate your trip costs.";
-
-        // Detect if user specifies a destination
-        if (query.includes('maldives')) {
-          lastMentionedDestination = 'maldives';
-        } else if (query.includes('switzerland') || query.includes('swiss') || query.includes('zermatt')) {
-          lastMentionedDestination = 'switzerland';
-        } else if (query.includes('santorini') || query.includes('greece')) {
-          lastMentionedDestination = 'santorini';
-        }
-
-        // Dynamic Currency Conversion Handler
-        let targetCurrKey = 'EUR';
-        let targetCurrSymbol = '€';
-
-        if (query.includes('dollar') || query.includes('usd') || query.includes('$')) {
-          targetCurrKey = 'USD';
-          targetCurrSymbol = '$';
-        } else if (query.includes('pound') || query.includes('gbp') || query.includes('£')) {
-          targetCurrKey = 'GBP';
-          targetCurrSymbol = '£';
-        } else if (query.includes('yen') || query.includes('jpy') || query.includes('¥')) {
-          targetCurrKey = 'JPY';
-          targetCurrSymbol = '¥';
-        } else if (query.includes('cad') || query.includes('canadian')) {
-          targetCurrKey = 'CAD';
-          targetCurrSymbol = 'CAD $';
-        } else if (query.includes('aud') || query.includes('australian')) {
-          targetCurrKey = 'AUD';
-          targetCurrSymbol = 'AUD $';
-        } else if (query.includes('chf') || query.includes('franc')) {
-          targetCurrKey = 'CHF';
-          targetCurrSymbol = 'CHF ';
-        } else if (query.includes('inr') || query.includes('rupee') || query.includes('₹')) {
-          targetCurrKey = 'INR';
-          targetCurrSymbol = '₹';
-        } else if (query.includes('aed') || query.includes('dirham')) {
-          targetCurrKey = 'AED';
-          targetCurrSymbol = 'د.إ ';
-        }
-
-        // Handle responses based on user input
-        if (targetCurrKey !== 'EUR' && (query.includes('dollar') || query.includes('usd') || query.includes('$') || query.includes('in') || query.includes('price') || query.includes('cost'))) {
-          const basePrices = { maldives: 2299, switzerland: 1702, santorini: 1518 };
-          const baseEUR = basePrices[lastMentionedDestination];
-          const rate = currencyData[targetCurrKey].rate;
-          const convertedPrice = Math.round(baseEUR * rate).toLocaleString();
-
-          replyText = `The ${lastMentionedDestination.charAt(0).toUpperCase() + lastMentionedDestination.slice(1)} package is approximately ${targetCurrSymbol}${convertedPrice} (${targetCurrKey}).`;
-        } else if (query.includes('hotel') || query.includes('stay') || query.includes('accommodation')) {
-          if (lastMentionedDestination === 'maldives') {
-            replyText = "In the Maldives, our featured stay style is a 4-Star Beach Villa starting around €2,299 for 7 days.";
-          } else if (lastMentionedDestination === 'switzerland') {
-            replyText = "In Switzerland, our featured stay style is an Alpine Boutique Lodge located in Zermatt.";
-          } else if (lastMentionedDestination === 'santorini') {
-            replyText = "In Santorini, our featured stay style is a Caldera-View Suite overlooking the Aegean Sea.";
-          } else {
-            replyText = "We offer curated hotel styles across all destinations: 4-Star Beach Villas in the Maldives, Alpine Lodges in Switzerland, and Caldera-View Suites in Santorini!";
-          }
-        } else if (query.includes('maldives')) {
-          replyText = "The Maldives is stunning! We feature 4-Star Beach Villas starting around €2,299 for 7 days, complete with speedboat and atoll transit tips.";
-        } else if (query.includes('switzerland') || query.includes('swiss')) {
-          replyText = "Switzerland offers breathtaking alpine views! Our curated Zermatt packages average around €1,702 for 5 days with mountain transit guides.";
-        } else if (query.includes('santorini')) {
-          replyText = "Santorini is famous for its blue hours and caldera suites, averaging around €1,518 for 6 days.";
-        } else if (query.includes('transit') || query.includes('getting around') || query.includes('transport')) {
-          if (lastMentionedDestination === 'maldives') {
-            replyText = "In the Maldives, speedboats and domestic flights connect the atolls with ease.";
-          } else if (lastMentionedDestination === 'switzerland') {
-            replyText = "In Switzerland, trains, buses, and cable cars make every mountain view reachable.";
-          } else if (lastMentionedDestination === 'santorini') {
-            replyText = "In Santorini, local buses, ferries, and quick transit keep your caldera days fluid.";
-          } else {
-            replyText = "Our destinations offer great transit options: speedboats in the Maldives, mountain trains in Switzerland, and local buses/ferries in Santorini!";
-          }
-        } else if (query.includes('destinations') || query.includes('destination') || query.includes('where')) {
-          replyText = "Our top featured destinations are the Maldives, Switzerland, and Santorini. Each has its own curated hotel style, highlight landmarks, and transit details!";
-        } else if (query.includes('itinerar') || query.includes('plan') || query.includes('custom') || query.includes('trip')) {
-          replyText = "We specialize in flexible custom trip planning built around your pace! Check out our Services section or tell us which destination you'd like an outline for.";
-        } else if (query.includes('budget') || query.includes('price') || query.includes('cost') || query.includes('estimator')) {
-          replyText = "You can use our interactive Budget Estimator section on the page to customize your exact trip pricing across 9 different global currencies and traveler counts!";
-        } else if (query.includes('hello') || query.includes('hi') || query.includes('hey')) {
-          replyText = "Hello! Are you planning a getaway to the Maldives, Switzerland, or Santorini today?";
-        } else if (query.includes('contact') || query.includes('email') || query.includes('reach')) {
-          replyText = "You can reach us directly anytime at wanderlusthubagency@gmail.com or fill out the contact form at the bottom of the page!";
-        }
-
-        const botMsg = document.createElement('div');
-        botMsg.className = 'chat-message bot';
-        botMsg.textContent = replyText;
-        chatBody.appendChild(botMsg);
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }, 600);
-    }
-
-    // Currency & Estimator Script
     const currencyData = {
       USD: { symbol: '$', rate: 1.08 },
       EUR: { symbol: '€', rate: 1.00 },
