@@ -19,6 +19,109 @@
     two.parentNode.insertBefore(twenty, two);
   })(window, document, 'script', 'https://scripts.stay22.com/letmeallez.js');
 </script>>
+
+  <style>
+    /* Chatbot Widget Styles */
+    .concierge-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+    }
+    .concierge-trigger {
+      background: var(--sea, #0e4c5a);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+    .concierge-trigger:hover {
+      transform: scale(1.05);
+    }
+    .chat-popup {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 320px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    .chat-popup.active {
+      display: flex;
+    }
+    .chat-header {
+      background: var(--sea, #0e4c5a);
+      color: white;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+    }
+    .chat-close {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .chat-body {
+      padding: 16px;
+      height: 240px;
+      overflow-y: auto;
+      font-size: 14px;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #f9f9f9;
+    }
+    .chat-message {
+      padding: 10px 12px;
+      border-radius: 8px;
+      max-width: 85%;
+      line-height: 1.4;
+    }
+    .chat-message.bot {
+      background: #e2e8f0;
+      align-self: flex-start;
+    }
+    .chat-footer {
+      padding: 10px;
+      display: flex;
+      gap: 8px;
+      border-top: 1px solid #eee;
+      background: white;
+    }
+    .chat-input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+      font-size: 13px;
+    }
+    .chat-send {
+      background: var(--sea, #0e4c5a);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <div class="site">
@@ -70,7 +173,7 @@
           </div>
         </div>
 
-        <!-- Search Panel (Fixed grid columns so white container fits 3 fields perfectly) -->
+        <!-- Search Panel -->
         <div class="search-panel" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; align-items: center;">
           <div class="search-field">
             <i class="fa-solid fa-location-dot" style="color: var(--sea);"></i>
@@ -422,7 +525,7 @@
     <!-- Footer -->
     <footer class="footer">
       <div class="container">
-        <div class="footer-grid" style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: start;">
+        <div class="footer-grid" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem;">
           <div>
             <a href="#" class="brand" style="color: white;">
               <div class="brand-mark">
@@ -436,9 +539,9 @@
               <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
           </div>
-          <div style="justify-self: start;">
+          <div style="text-align: right;">
             <h4 style="margin-bottom: 1.0rem; color: white; font-size: 14px; letter-spacing: 1px;">QUICK LINKS</h4>
-            <div class="footer-links" style="display: flex; flex-direction: column; gap: 8px;">
+            <div class="footer-links" style="display: flex; flex-direction: column; gap: 8px; align-items: flex-end;">
               <a href="#home" style="color: rgba(255,255,255,0.7); text-decoration: none;">Home</a>
               <a href="#about" style="color: rgba(255,255,255,0.7); text-decoration: none;">About Us</a>
               <a href="#destinations" style="color: rgba(255,255,255,0.7); text-decoration: none;">Destinations</a>
@@ -454,7 +557,20 @@
 
     <!-- Integrated AI Chatbot Widget -->
     <div class="concierge-widget">
-      <button class="concierge-trigger" aria-label="Open AI Concierge">
+      <div class="chat-popup" id="chatPopup">
+        <div class="chat-header">
+          <span>AI Travel Concierge</span>
+          <button class="chat-close" id="chatClose"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody">
+          <div class="chat-message bot">Hello! How can I help you plan your trip today?</div>
+        </div>
+        <div class="chat-footer">
+          <input type="text" class="chat-input" id="chatInput" placeholder="Type a message...">
+          <button class="chat-send" id="chatSend"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+      </div>
+      <button class="concierge-trigger" id="conciergeTrigger" aria-label="Open AI Concierge">
         <i class="fa-solid fa-robot"></i> AI Concierge
       </button>
     </div>
@@ -462,6 +578,60 @@
 
   <!-- Interactive Scripts -->
   <script>
+    // Chatbot Toggle Functionality
+    const conciergeTrigger = document.getElementById('conciergeTrigger');
+    const chatPopup = document.getElementById('chatPopup');
+    const chatClose = document.getElementById('chatClose');
+    const chatSend = document.getElementById('chatSend');
+    const chatInput = document.getElementById('chatInput');
+    const chatBody = document.getElementById('chatBody');
+
+    if (conciergeTrigger && chatPopup) {
+      conciergeTrigger.addEventListener('click', () => {
+        chatPopup.classList.toggle('active');
+      });
+    }
+
+    if (chatClose && chatPopup) {
+      chatClose.addEventListener('click', () => {
+        chatPopup.classList.remove('active');
+      });
+    }
+
+    if (chatSend && chatInput && chatBody) {
+      chatSend.addEventListener('click', sendMessage);
+      chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+      });
+    }
+
+    function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      // User Message
+      const userMsg = document.createElement('div');
+      userMsg.className = 'chat-message';
+      userMsg.style.alignSelf = 'flex-end';
+      userMsg.style.background = 'var(--sea)';
+      userMsg.style.color = 'white';
+      userMsg.textContent = text;
+      chatBody.appendChild(userMsg);
+
+      chatInput.value = '';
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      // Simple Bot Reply simulation
+      setTimeout(() => {
+        const botMsg = document.createElement('div');
+        botMsg.className = 'chat-message bot';
+        botMsg.textContent = "Thanks for your note! Let me check the best options for your journey.";
+        chatBody.appendChild(botMsg);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 600);
+    }
+
+    // Currency & Estimator Script
     const currencyData = {
       USD: { symbol: '$', rate: 1.08 },
       EUR: { symbol: '€', rate: 1.00 },
