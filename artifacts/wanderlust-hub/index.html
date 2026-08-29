@@ -707,6 +707,16 @@
           const convertedPrice = Math.round(baseEUR * rate).toLocaleString();
 
           replyText = `The ${lastMentionedDestination.charAt(0).toUpperCase() + lastMentionedDestination.slice(1)} package is approximately ${targetCurrSymbol}${convertedPrice} (${targetCurrKey}).`;
+        } else if (query.includes('hotel') || query.includes('stay') || query.includes('accommodation')) {
+          if (lastMentionedDestination === 'maldives') {
+            replyText = "In the Maldives, our featured stay style is a 4-Star Beach Villa starting around €2,299 for 7 days.";
+          } else if (lastMentionedDestination === 'switzerland') {
+            replyText = "In Switzerland, our featured stay style is an Alpine Boutique Lodge located in Zermatt.";
+          } else if (lastMentionedDestination === 'santorini') {
+            replyText = "In Santorini, our featured stay style is a Caldera-View Suite overlooking the Aegean Sea.";
+          } else {
+            replyText = "We offer curated hotel styles across all destinations: 4-Star Beach Villas in the Maldives, Alpine Lodges in Switzerland, and Caldera-View Suites in Santorini!";
+          }
         } else if (query.includes('maldives')) {
           replyText = "The Maldives is stunning! We feature 4-Star Beach Villas starting around €2,299 for 7 days, complete with speedboat and atoll transit tips.";
         } else if (query.includes('switzerland') || query.includes('swiss')) {
