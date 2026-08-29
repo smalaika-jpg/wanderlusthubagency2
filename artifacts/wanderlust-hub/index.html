@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +9,10 @@
 </head>
 <body>
   <div class="site">
+    <!-- Topbar / Navbar -->
     <header class="topbar">
       <div class="container nav-inner">
-        <a href="#" class="brand">
+        <a href="#home" class="brand">
           <div class="brand-mark">
             <i class="fa-solid fa-plane"></i>
           </div>
@@ -37,7 +38,6 @@
             <option value="INR">INR (₹)</option>
             <option value="AED">AED (د.إ)</option>
           </select>
-          <a href="#contact" class="nav-cta">Let's Talk</a>
         </div>
         <button class="menu-button" aria-label="Toggle menu">
           <i class="fa-solid fa-bars fa-lg"></i>
@@ -45,6 +45,7 @@
       </div>
     </header>
 
+    <!-- Hero Section -->
     <section id="home" class="hero">
       <div class="container">
         <div class="hero-content">
@@ -56,12 +57,13 @@
           </div>
         </div>
 
+        <!-- Search Panel -->
         <div class="search-panel">
           <div class="search-field">
             <i class="fa-solid fa-location-dot" style="color: var(--sea);"></i>
             <div>
               <span class="field-label">Where to?</span>
-              <select aria-label="Where to">
+              <select id="search-destination" aria-label="Where to">
                 <option selected>Maldives</option>
                 <option>Switzerland</option>
                 <option>Santorini</option>
@@ -72,14 +74,14 @@
             <i class="fa-regular fa-calendar" style="color: var(--sea);"></i>
             <div>
               <span class="field-label">When?</span>
-              <input type="text" placeholder="mm/dd/yyyy" aria-label="Travel Date">
+              <input type="date" id="search-date" aria-label="Travel Date">
             </div>
           </div>
           <div class="search-field">
             <i class="fa-regular fa-user" style="color: var(--sea);"></i>
             <div>
               <span class="field-label">Travelers</span>
-              <select aria-label="Travelers">
+              <select id="search-travelers" aria-label="Travelers">
                 <option value="1" selected>1 Traveler</option>
                 <option value="2">2 Travelers</option>
                 <option value="3">3 Travelers</option>
@@ -89,13 +91,14 @@
               </select>
             </div>
           </div>
-          <button class="search-submit">
+          <button type="button" class="search-submit" id="find-trips-btn">
             <i class="fa-solid fa-magnifying-glass"></i> Find trips
           </button>
         </div>
       </div>
     </section>
 
+    <!-- Destinations Section -->
     <section id="destinations" class="section-pad">
       <div class="container">
         <div class="intro-row">
@@ -110,6 +113,7 @@
         </div>
 
         <div class="destination-grid">
+          <!-- Card 1: Maldives -->
           <div class="destination-card">
             <div class="destination-photo">
               <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80" alt="Maldives">
@@ -132,11 +136,6 @@
                 <a href="#">Ari Atoll <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                 <a href="#">Vaavu Atoll <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
               </div>
-              <div class="perks">
-                <div class="perk"><i class="fa-solid fa-check"></i> Expert Guide Insights</div>
-                <div class="perk"><i class="fa-solid fa-check"></i> Handpicked Stays</div>
-                <div class="perk"><i class="fa-solid fa-check"></i> Local Secret Spots</div>
-              </div>
               <div class="getting-around">
                 <i class="fa-solid fa-info-circle"></i>
                 <div><strong>Getting around:</strong> Speedboats and domestic flights connect the atolls with ease.</div>
@@ -149,11 +148,15 @@
                   <span class="price-label">Reference budget</span>
                   <div class="price">€2,299 <small>/ 7 Days</small></div>
                 </div>
-                <a href="#" class="price-link">Explore guide <i class="fa-solid fa-arrow-right"></i></a>
+                <div class="price-action-buttons" style="display: flex; gap: 8px;">
+                  <a href="https://www.stay22.com" target="_blank" rel="noopener noreferrer" class="price-link" style="background: #2563eb; padding: 8px 12px; border-radius: 6px; color: #fff; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">Stay22 <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px;"></i></a>
+                  <a href="https://www.booking.com" target="_blank" rel="noopener noreferrer" class="price-link" style="background: var(--sea); padding: 8px 12px; border-radius: 6px; color: #fff; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">Check Prices <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></a>
+                </div>
               </div>
             </div>
           </div>
 
+          <!-- Card 2: Switzerland -->
           <div class="destination-card">
             <div class="destination-photo">
               <img src="https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=800&q=80" alt="Switzerland">
@@ -176,11 +179,6 @@
                 <a href="#">Riffelseee <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                 <a href="#">Zermatt Village <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
               </div>
-              <div class="perks">
-                <div class="perk"><i class="fa-solid fa-check"></i> Scenic Route Maps</div>
-                <div class="perk"><i class="fa-solid fa-check"></i> Handpicked Stays</div>
-                <div class="perk"><i class="fa-solid fa-check"></i> Local Secret Spots</div>
-              </div>
               <div class="getting-around">
                 <i class="fa-solid fa-info-circle"></i>
                 <div><strong>Getting around:</strong> Trains, buses, and cable cars make every mountain view reachable.</div>
@@ -193,11 +191,15 @@
                   <span class="price-label">Reference budget</span>
                   <div class="price">€1,702 <small>/ 5 Days</small></div>
                 </div>
-                <a href="#" class="price-link">Explore guide <i class="fa-solid fa-arrow-right"></i></a>
+                <div class="price-action-buttons" style="display: flex; gap: 8px;">
+                  <a href="https://www.stay22.com" target="_blank" rel="noopener noreferrer" class="price-link" style="background: #2563eb; padding: 8px 12px; border-radius: 6px; color: #fff; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">Stay22 <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px;"></i></a>
+                  <a href="https://www.booking.com" target="_blank" rel="noopener noreferrer" class="price-link" style="background: var(--sea); padding: 8px 12px; border-radius: 6px; color: #fff; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">Check Prices <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></a>
+                </div>
               </div>
             </div>
           </div>
 
+          <!-- Card 3: Santorini -->
           <div class="destination-card">
             <div class="destination-photo">
               <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=800&q=80" alt="Santorini">
@@ -218,4 +220,260 @@
                 <a href="#">Oia <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                 <a href="#">Fira <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                 <a href="#">Imerovigli <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                <a href="#">Akrotiri
+                <a href="#">Akrotiri <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              </div>
+              <div class="getting-around">
+                <i class="fa-solid fa-info-circle"></i>
+                <div><strong>Getting around:</strong> Local buses, ferries, and quick gyros keep the caldera days fluid.</div>
+              </div>
+              <div class="style-line">
+                <strong>Itinerary styles:</strong> Fast & Cheap / Slow & Savvy
+              </div>
+              <div class="card-footer">
+                <div>
+                  <span class="price-label">Reference budget</span>
+                  <div class="price">€1,518 <small>/ 6 Days</small></div>
+                </div>
+                <div class="price-action-buttons" style="display: flex; gap: 8px;">
+                  <a href="https://www.stay22.com" target="_blank" rel="noopener noreferrer" class="price-link" style="background: #2563eb; padding: 8px 12px; border-radius: 6px; color: #fff; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">Stay22 <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px;"></i></a>
+                  <a href="https://www.booking.com" target="_blank" rel="noopener noreferrer" class="price-link" style="background: var(--sea); padding: 8px 12px; border-radius: 6px; color: #fff; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">Check Prices <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Budget Estimator Section -->
+    <section id="estimator" class="estimator-wrap section-pad">
+      <div class="container">
+        <div class="estimator-inner">
+          <div>
+            <div class="section-heading">
+              <span class="eyebrow">Make the numbers sing</span>
+              <h2>Your trip, in focus.</h2>
+              <p>Start with a reference budget, then shape it around your travel style. No hard sell. Just a clear view of what the journey could look like.</p>
+            </div>
+          </div>
+          <div class="estimate-card">
+            <h3>Build a quick estimate</h3>
+            <div class="estimate-grid">
+              <div>
+                <label class="field-label">Destination</label>
+                <select class="styled-select" aria-label="Destination">
+                  <option selected>Maldives</option>
+                  <option>Switzerland</option>
+                  <option>Santorini</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label">Currency</label>
+                <select class="styled-select" aria-label="Currency">
+                  <option value="EUR" selected>EUR (€)</option>
+                  <option value="USD">USD ($)</option>
+                  <option value="GBP">GBP (£)</option>
+                  <option value="CAD">CAD ($)</option>
+                  <option value="AUD">AUD ($)</option>
+                  <option value="JPY">JPY (¥)</option>
+                  <option value="CHF">CHF (CHF)</option>
+                  <option value="INR">INR (₹)</option>
+                  <option value="AED">AED (د.إ)</option>
+                </select>
+              </div>
+            </div>
+            <div class="estimate-grid" style="margin-bottom: 1.5rem;">
+              <div>
+                <label class="field-label">Travelers</label>
+                <select class="styled-select" aria-label="Travelers">
+                  <option value="1" selected>1 Traveler</option>
+                  <option value="2">2 Travelers</option>
+                  <option value="3">3 Travelers</option>
+                  <option value="4">4 Travelers</option>
+                  <option value="5">5 Travelers</option>
+                  <option value="6">6+ Travelers (Group)</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label">Daily travel style</label>
+                <div class="style-options" id="style-options">
+                  <button type="button" class="style-option active" data-style="budget">Budget $</button>
+                  <button type="button" class="style-option" data-style="midrange">Mid-range $$</button>
+                  <button type="button" class="style-option" data-style="luxury">Luxury $$$</button>
+                </div>
+              </div>
+            </div>
+            <div class="estimate-total">
+              <div>
+                <span class="field-label" style="margin: 0;">Estimated package total</span>
+                <strong>€3,311</strong>
+              </div>
+              <div class="daily-total">
+                Est. per day €473<br>
+                7 Days / 6 Nights
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-pad">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-visual-wrapper">
+            <div class="experience-badge top-right">
+              <strong>15+</strong> Years of Experience
+            </div>
+            <div class="about-visual" style="background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80');"></div>
+          </div>
+          <div class="about-copy">
+            <span class="eyebrow">A little more about us</span>
+            <h2 class="serif" style="font-size: 2.5rem; margin: 12px 0 16px; color: var(--ink);">Travel advice with a point of view.</h2>
+            <p>Wanderlust Hub is for travelers who want the freedom to make a trip their own, without starting from a blank page. For 15+ years, we have gathered the stays, routes, and small details that turn a destination into a story.</p>
+            <p>We provide curated destination guides and flexible journeys — not direct booking management. Think of us as your well-traveled friend with a very good spreadsheet.</p>
+            <div class="about-points">
+              <div class="about-point"><span class="fa-solid fa-circle-check" style="color: var(--sea);"></span> Curated, never crowded</div>
+              <div class="about-point"><span class="fa-solid fa-circle-check" style="color: var(--sea);"></span> Prices you can see</div>
+              <div class="about-point"><span class="fa-solid fa-circle-check" style="color: var(--sea);"></span> Your pace, your call</div>
+              <div class="about-point"><span class="fa-solid fa-circle-check" style="color: var(--sea);"></span> Helpful around the clock</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section section-pad">
+      <div class="container">
+        <div class="services-head">
+          <div class="section-heading">
+            <span class="eyebrow" style="color: var(--sun);">What we are good at</span>
+            <h2 style="color: white;">Less admin.<br><em class="serif" style="font-weight: 400;">More</em> anticipation.</h2>
+          </div>
+          <p style="color: rgba(255,255,255,0.75); max-width: 400px; font-size: 15px;">
+            Good travel planning should feel like opening a map, not filling out a form. These are the pieces we make lighter.
+          </p>
+        </div>
+        <div class="services-grid">
+          <div class="service-card featured">
+            <div class="service-icon"><i class="fa-regular fa-compass fa-2x"></i></div>
+            <div>
+              <h3>Custom Trip Planning</h3>
+              <p>Flexible outlines built around your pace, your people, and the places you actually want to linger.</p>
+            </div>
+            <div class="service-number">01</div>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fa-solid fa-hotel fa-2x"></i></div>
+            <div>
+              <h3>Hotel Price Comparison</h3>
+              <p>Transparent stays and smart deal discovery, with clear links to compare before you commit.</p>
+            </div>
+            <div class="service-number">02</div>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fa-regular fa-comments fa-2x"></i></div>
+            <div>
+              <h3>24/7 AI Concierge Support</h3>
+              <p>A useful first stop for questions, ideas, and those little what-if moments while you plan.</p>
+            </div>
+            <div class="service-number">03</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-pad">
+      <div class="container">
+        <div class="contact-box">
+          <div class="contact-aside">
+            <span class="eyebrow" style="color: var(--sun);">Let's talk about going</span>
+            <h2 class="serif" style="font-size: 2.5rem; margin: 12px 0;">Bring us your maybe.</h2>
+            <p>Have a destination in mind, or just a feeling? Tell us what you are dreaming about and we will point you in a promising direction.</p>
+            <div class="email-line">
+              <i class="fa-regular fa-envelope"></i> wanderlusthubagency@gmail.com
+            </div>
+          </div>
+          <div class="contact-form">
+            <h3>Send a note</h3>
+            <form class="form-stack">
+              <input type="text" placeholder="Full Name" class="contact-input" required>
+              <input type="email" placeholder="Email Address" class="contact-input" required>
+              <textarea placeholder="Tell us where your curiosity is taking you..." class="contact-input" required></textarea>
+              <button type="submit" class="button-primary" style="width: 100%; justify-content: center;">
+                Send my note <i class="fa-regular fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <a href="#" class="brand" style="color: white;">
+              <div class="brand-mark">
+                <i class="fa-solid fa-plane"></i>
+              </div>
+              Wanderlust Hub
+            </a>
+            <p class="footer-mission">Curated destination guidance for people who would rather collect stories than schedules.</p>
+            <div class="socials">
+              <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+          <div>
+            <h4>QUICK LINKS</h4>
+            <div class="footer-links">
+              <a href="#home">Home</a>
+              <a href="#about">About Us</a>
+              <a href="#destinations">Destinations</a>
+              <a href="#services">Services</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2026 Wanderlust Hub Agency. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <!-- Integrated AI Chatbot Widget -->
+    <div class="concierge-widget">
+      <button class="concierge-trigger" aria-label="Open AI Concierge">
+        <i class="fa-solid fa-robot"></i> AI Concierge
+      </button>
+    </div>
+  </div>
+
+  <!-- Interactive Scripts -->
+  <script>
+    // Style selection buttons logic
+    const styleButtons = document.querySelectorAll('#style-options .style-option');
+    styleButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        styleButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Find trips button click action
+    const findTripsBtn = document.getElementById('find-trips-btn');
+    if (findTripsBtn) {
+      findTripsBtn.addEventListener('click', () => {
+        const dest = document.getElementById('search-destination').value;
+        const date = document.getElementById('search-date').value || 'Any date';
+        const travelers = document.getElementById('search-travelers').value;
+        alert(`Searching trips for ${travelers} traveler(s) to ${dest} on ${date}!`);
+      });
+    }
+  </script>
+</body>
+</html>
