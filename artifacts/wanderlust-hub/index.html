@@ -563,7 +563,7 @@
           <button class="chat-close" id="chatClose"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="chat-body" id="chatBody">
-          <div class="chat-message bot">Hello! How can I help you plan your trip today?</div>
+          <div class="chat-message bot">Hello! How can I help you plan your trip today? You can ask about our destinations (Maldives, Switzerland, Santorini), pricing, or custom itineraries!</div>
         </div>
         <div class="chat-footer">
           <input type="text" class="chat-input" id="chatInput" placeholder="Type a message...">
@@ -621,11 +621,28 @@
       chatInput.value = '';
       chatBody.scrollTop = chatBody.scrollHeight;
 
-      // Simple Bot Reply simulation
+      // Intelligent Context-Aware Bot Response Generator
       setTimeout(() => {
+        const query = text.toLowerCase();
+        let replyText = "That sounds like an amazing journey! Feel free to check our destination guides above or use the Budget Estimator to calculate your trip costs.";
+
+        if (query.includes('maldives')) {
+          replyText = "The Maldives is stunning! We feature 4-Star Beach Villas starting around €2,299 for 7 days, complete with speedboat and atoll transit tips.";
+        } else if (query.includes('switzerland')) {
+          replyText = "Switzerland offers breathtaking alpine views! Our curated Zermatt packages average around €1,702 for 5 days with mountain transit guides.";
+        } else if (query.includes('santorini')) {
+          replyText = "Santorini is famous for its blue hours and caldera suites, averaging around €1,518 for 6 days.";
+        } else if (query.includes('budget') || query.includes('price') || query.includes('cost') || query.includes('estimator')) {
+          replyText = "You can use our interactive Budget Estimator section on the page to customize your exact trip pricing across 9 different global currencies and traveler counts!";
+        } else if (query.includes('hello') || query.includes('hi') || query.includes('hey')) {
+          replyText = "Hello! Are you planning a getaway to the Maldives, Switzerland, or Santorini today?";
+        } else if (query.includes('contact') || query.includes('email') || query.includes('reach')) {
+          replyText = "You can reach us directly anytime at wanderlusthubagency@gmail.com or fill out the contact form at the bottom of the page!";
+        }
+
         const botMsg = document.createElement('div');
         botMsg.className = 'chat-message bot';
-        botMsg.textContent = "Thanks for your note! Let me check the best options for your journey.";
+        botMsg.textContent = replyText;
         chatBody.appendChild(botMsg);
         chatBody.scrollTop = chatBody.scrollHeight;
       }, 600);
